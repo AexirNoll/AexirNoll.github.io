@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codex Aeternum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #160d00;
+  --vellum: #f4e8cc;
+  --aged: #e6d09e;
+  --parchment: #ede0c0;
+  --darkbrown: #2a1600;
+  --midbrown: #4a2c08;
+  --gold: #8a6310;
+  --goldlight: #c49318;
+  --goldglow: rgba(196,147,24,0.22);
+  --rust: #6a2808;
+  --deepred: #480f06;
+  --greenink: #183318;
+  --verdigris: #2a5a48;
+  --border: #543508;
+  --blue: #182250;
+  --shadow: rgba(16,6,0,0.55);
+  --silver: #8a8a7a;
+  --purple: #2a1248;
+  --cyan: #0e2e3a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #0a0500;
+  font-family: 'EB Garamond', Georgia, serif;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════════════ COVER */
+#cover {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 30%, #1c0e02 0%, #0a0500 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+#cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(139,105,20,0.07) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(90,58,16,0.035) 39px, rgba(90,58,16,0.035) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(90,58,16,0.018) 39px, rgba(90,58,16,0.018) 40px);
+  pointer-events: none;
+}
+
+.cover-inner {
+  max-width: 620px;
+  width: 100%;
+  border: 1px solid rgba(139,105,20,0.35);
+  padding: 60px 50px 52px;
+  text-align: center;
+  position: relative;
+  background: rgba(10,5,0,0.6);
+  backdrop-filter: blur(2px);
+}
+.cover-inner::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(139,105,20,0.15);
+  pointer-events: none;
+}
+.cover-inner::after {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(139,105,20,0.06);
+  pointer-events: none;
+}
+
+.c-rune-bar {
+  font-size: 13px;
+  letter-spacing: 10px;
+  color: rgba(196,147,24,0.45);
+  margin-bottom: 36px;
+  line-height: 1;
+}
+
+.c-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: rgba(196,147,24,0.4);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.c-title {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: 64px;
+  color: var(--goldlight);
+  line-height: 1.05;
+  margin-bottom: 8px;
+  text-shadow: 0 0 30px rgba(196,147,24,0.3), 0 2px 8px rgba(0,0,0,0.8);
+}
+
+.c-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(196,147,24,0.55);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.c-ornament {
+  font-size: 22px;
+  letter-spacing: 20px;
+  color: rgba(139,105,20,0.3);
+  margin: 0 0 28px;
+}
+
+.c-sigil {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 28px;
+}
+
+.c-verse {
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(244,232,204,0.35);
+  line-height: 2;
+  max-width: 380px;
+  margin: 0 auto 36px;
+  border-top: 1px solid rgba(139,105,20,0.2);
+  border-bottom: 1px solid rgba(139,105,20,0.2);
+  padding: 18px 0;
+}
+
+.c-ley {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(196,147,24,0.35);
+  font-style: normal;
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+
+.open-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--goldlight);
+  background: none;
+  border: 1px solid rgba(196,147,24,0.4);
+  padding: 12px 28px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  position: relative;
+}
+.open-btn::before, .open-btn::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(196,147,24,0.4);
+  font-size: 8px;
+  transition: opacity 0.3s;
+}
+.open-btn::before { left: 12px; }
+.open-btn::after { right: 12px; }
+.open-btn:hover {
+  background: rgba(196,147,24,0.08);
+  border-color: rgba(196,147,24,0.7);
+  color: #e8b830;
+}
+
+/* ═══════════════════════════════════════════════════ MAIN */
+#main { display: none; background: #0a0500; }
+
+/* TABS */
+.tab-strip {
+  background: #0e0700;
+  border-bottom: 1px solid rgba(90,58,16,0.4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 0 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.tab-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(196,147,24,0.4);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 14px 16px 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: rgba(196,147,24,0.7); }
+.tab-btn.active {
+  color: var(--goldlight);
+  border-bottom-color: var(--goldlight);
+}
+
+/* SECTIONS */
+.sec { display: none; }
+.sec.active { display: block; }
+
+/* ═══════════════════════════════════════════════════ PAGE WRAPPER */
+.page-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+/* ═══════════════════════════════════════════════════ INTRO/STATIC PAGES */
+.static-page {
+  background: var(--vellum);
+  border: 1px solid var(--border);
+  margin: 32px 0;
+  padding: 56px 60px;
+  position: relative;
+}
+.static-page::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(90,58,16,0.1);
+  pointer-events: none;
+}
+.static-page .pg-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(90,58,16,0.04) 27px, rgba(90,58,16,0.04) 28px);
+  pointer-events: none;
+  border-radius: 0;
+}
+
+.page-num {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+.page-num::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  opacity: 0.3;
+}
+
+.page-title {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: 42px;
+  color: var(--darkbrown);
+  line-height: 1.1;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--rust);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.prose {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--darkbrown);
+  columns: 2;
+  column-gap: 36px;
+  position: relative;
+  z-index: 1;
+}
+.prose.single { columns: 1; }
+.prose p { margin-bottom: 16px; text-align: justify; }
+.prose p:first-child::first-letter {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.75;
+  padding-right: 8px;
+  padding-top: 6px;
+  color: var(--rust);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  opacity: 0.2;
+  margin: 24px 0;
+  position: relative;
+  z-index: 1;
+}
+.divider-ornament {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(139,105,20,0.3);
+  letter-spacing: 12px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════ LEY */
+.ley-block {
+  background: rgba(74,44,8,0.06);
+  border: 1px solid rgba(139,105,20,0.25);
+  border-left: 4px solid var(--gold);
+  padding: 24px 30px;
+  margin: 24px 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.ley-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.ley-text {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  color: var(--darkbrown);
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════════════════════════════ REGLAS */
+.rule-block {
+  border: 1px solid;
+  padding: 20px 24px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+.rule-block.protec { border-color: rgba(42,18,72,0.3); background: rgba(42,18,72,0.04); }
+.rule-block.ritual-a { border-color: rgba(139,105,20,0.3); background: rgba(139,105,20,0.04); }
+.rule-block.cierre { border-color: rgba(72,15,6,0.3); background: rgba(72,15,6,0.04); }
+
+.rule-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.rule-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 13px;
+  color: var(--rust);
+  margin-bottom: 10px;
+}
+.rule-body {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--darkbrown);
+}
+.rule-body ol, .rule-body ul { padding-left: 20px; margin-top: 8px; }
+.rule-body li { margin-bottom: 6px; }
+.rule-body .cardinal { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 1px; color: var(--rust); }
+.rule-body .cardinal-line { display: flex; gap: 12px; margin-bottom: 8px; }
+
+/* ═══════════════════════════════════════════════════ SIGILO */
+.sigil-section {
+  background: rgba(74,44,8,0.04);
+  border: 1px solid rgba(139,105,20,0.2);
+  padding: 28px 32px;
+  margin: 24px 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.sigil-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.sigil-svg { margin: 0 auto 16px; display: block; }
+.sigil-phrase {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--rust);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.sigil-letters {
+  font-size: 22px;
+  letter-spacing: 8px;
+  color: var(--gold);
+  opacity: 0.5;
+  font-family: 'Cinzel Decorative', serif;
+}
+
+/* ═══════════════════════════════════════════════════ TOC */
+.toc-section {
+  background: var(--vellum);
+  border: 1px solid var(--border);
+  padding: 44px 52px;
+  margin: 32px 0;
+  position: relative;
+}
+.toc-section::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(90,58,16,0.1);
+  pointer-events: none;
+}
+.toc-head {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--rust);
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 28px; margin-bottom: 8px; }
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 6px 0;
+  border-bottom: 1px dotted rgba(90,58,16,0.18);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.toc-item:hover .ti-name { color: var(--rust); }
+.ti-r { font-size: 15px; color: var(--gold); min-width: 20px; }
+.ti-name { font-size: 13px; color: var(--darkbrown); flex: 1; }
+.ti-badge {
+  font-size: 9px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+  color: rgba(90,58,16,0.4);
+  font-style: italic;
+}
+.ti-moon { font-size: 11px; color: rgba(139,105,20,0.5); margin-left: 4px; }
+
+/* ═══════════════════════════════════════════════════ SPELL PAGE */
+.spell-wrap {
+  background: var(--vellum);
+  border: 1px solid var(--border);
+  margin: 32px 0;
+  padding: 50px 56px 60px;
+  position: relative;
+  display: none;
+}
+.spell-wrap.active { display: block; }
+.spell-wrap .pg-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(90,58,16,0.038) 27px, rgba(90,58,16,0.038) 28px);
+  pointer-events: none;
+}
+.spell-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(90,58,16,0.1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sp-inner { position: relative; z-index: 1; }
+
+.sp-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.sp-num-line {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.sp-num-line::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  opacity: 0.35;
+}
+
+.sp-class-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border: 1px solid;
+  color: var(--verdigris);
+  border-color: rgba(42,90,72,0.4);
+  background: rgba(42,90,72,0.05);
+}
+.sp-class-badge.ext { color: var(--gold); border-color: rgba(139,105,20,0.4); background: rgba(139,105,20,0.05); }
+
+.sp-title { font-family: 'UnifrakturMaguntia', serif; font-size: 40px; color: var(--darkbrown); line-height: 1.1; margin-bottom: 3px; }
+.sp-sub { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px; color: var(--rust); text-transform: uppercase; margin-bottom: 14px; }
+
+.sp-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.sp-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 1px;
+  border: 1px solid;
+  padding: 3px 10px;
+  opacity: 0.7;
+}
+
+.sp-purpose {
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(42,22,0,0.6);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(90,58,16,0.2);
+}
+
+/* BOX */
+.box {
+  position: relative;
+  margin: 18px 0;
+  padding: 20px 24px;
+}
+.box-lbl {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 3px;
+  position: absolute;
+  top: -7px;
+  left: 16px;
+  padding: 0 8px;
+  background: var(--vellum);
+  text-transform: uppercase;
+}
+.box.ritual { background: rgba(90,58,16,0.05); border-left: 3px solid var(--gold); }
+.box.ritual .box-lbl { color: var(--gold); }
+.box.reto { background: rgba(26,51,24,0.05); border-left: 3px solid var(--verdigris); }
+.box.reto .box-lbl { color: var(--verdigris); }
+.box.cabala { background: rgba(24,34,80,0.04); border-left: 3px solid var(--blue); }
+.box.cabala .box-lbl { color: var(--blue); }
+.box.lunar { background: rgba(50,30,70,0.04); border-left: 3px solid rgba(80,50,110,0.5); }
+.box.lunar .box-lbl { color: var(--purple); }
+
+.r-row { display: flex; gap: 12px; margin-bottom: 10px; font-size: 13.5px; line-height: 1.65; color: var(--darkbrown); }
+.r-row:last-child { margin-bottom: 0; }
+.r-lbl { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 2px; color: var(--rust); min-width: 72px; padding-top: 3px; text-transform: uppercase; }
+
+.steps { list-style: none; counter-reset: s; padding: 0; margin-top: 12px; }
+.steps li { counter-increment: s; display: flex; gap: 12px; margin-bottom: 8px; font-size: 13.5px; line-height: 1.55; color: var(--darkbrown); }
+.steps li::before { content: counter(s); font-family: 'Cinzel', serif; font-size: 9px; color: var(--gold); min-width: 16px; padding-top: 3px; }
+
+/* LYRICS */
+.lyrics-head {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  opacity: 0.6;
+  text-transform: uppercase;
+  margin: 24px 0 14px;
+}
+.sp-lyrics {
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--darkbrown);
+  columns: 2;
+  column-gap: 34px;
+}
+.stanza { margin-bottom: 18px; break-inside: avoid; }
+.ch { font-style: italic; border-left: 2px solid rgba(139,105,20,0.28); padding-left: 12px; margin-bottom: 18px; break-inside: avoid; }
+.ch-mark { font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 3px; color: var(--gold); opacity: 0.55; margin-bottom: 5px; }
+.call { font-style: italic; color: rgba(42,22,0,0.4); font-size: 13px; margin-bottom: 14px; break-inside: avoid; }
+.bridge { padding-left: 20px; border-left: 1px solid rgba(90,58,16,0.18); margin-bottom: 18px; break-inside: avoid; }
+.rune-ch { font-family: 'Cinzel', serif; font-size: 13px; color: rgba(42,22,0,0.6); letter-spacing: 1px; margin-bottom: 18px; break-inside: avoid; }
+
+/* SEAL */
+.seal-block {
+  text-align: center;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(90,58,16,0.15);
+}
+.seal-lbl { font-family: 'Cinzel', serif; font-size: 7px; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; opacity: 0.55; }
+.seal-txt { font-family: 'Cinzel', serif; font-size: 15px; color: var(--rust); }
+.seal-rune { font-size: 18px; color: var(--gold); opacity: 0.35; letter-spacing: 10px; display: block; margin-top: 7px; }
+
+/* NAV */
+.spell-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0 0;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.nav-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--goldlight);
+  background: none;
+  border: 1px solid rgba(139,105,20,0.3);
+  padding: 8px 18px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.nav-btn:hover { background: rgba(139,105,20,0.1); }
+.nav-btn:disabled { opacity: 0.2; cursor: default; }
+.nav-ind {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(196,147,24,0.4);
+  text-align: center;
+}
+.rdots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; max-width: 300px; margin-top: 5px; }
+.rdot { font-size: 13px; color: rgba(196,147,24,0.3); cursor: pointer; transition: color 0.2s; padding: 2px; }
+.rdot:hover, .rdot.active { color: var(--goldlight); }
+
+/* ═══════════════════════════════════════════════════ ELEMENTS */
+.el-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; position: relative; z-index: 1; }
+.el-card { background: rgba(90,58,16,0.05); border: 1px solid rgba(90,58,16,0.2); padding: 18px 20px; }
+.el-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.el-sym { font-size: 24px; }
+.el-name { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px; color: var(--rust); text-transform: uppercase; }
+.el-being { font-size: 11px; color: rgba(42,22,0,0.45); font-style: italic; }
+.el-body { font-size: 13.5px; line-height: 1.7; color: var(--darkbrown); margin-bottom: 12px; }
+.el-inv { font-style: italic; font-size: 13px; line-height: 1.85; color: var(--darkbrown); border-left: 2px solid rgba(139,105,20,0.3); padding-left: 12px; margin-top: 10px; }
+.el-reto { font-size: 12px; color: var(--verdigris); font-style: italic; margin-top: 8px; }
+
+/* LUNA */
+.luna-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; position: relative; z-index: 1; }
+.luna-card { border: 1px solid rgba(90,58,16,0.2); padding: 18px 20px; }
+.luna-card.nueva { background: rgba(10,5,0,0.04); }
+.luna-card.creciente { background: rgba(42,90,72,0.04); }
+.luna-card.llena { background: rgba(139,105,20,0.04); }
+.luna-card.menguante { background: rgba(42,18,72,0.04); }
+.luna-sym { font-size: 28px; margin-bottom: 8px; }
+.luna-name { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px; color: var(--rust); text-transform: uppercase; margin-bottom: 8px; }
+.luna-desc { font-size: 13px; line-height: 1.7; color: var(--darkbrown); margin-bottom: 10px; }
+.luna-spells { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 1px; color: var(--gold); opacity: 0.7; }
+
+/* ORDEN */
+.orden-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 20px 0; position: relative; z-index: 1; }
+.ord-cell { background: rgba(90,58,16,0.05); border: 1px solid rgba(90,58,16,0.18); padding: 12px 8px; text-align: center; }
+.ord-rune { font-size: 20px; color: var(--gold); opacity: 0.5; display: block; margin-bottom: 4px; }
+.ord-num { font-family: 'Cinzel', serif; font-size: 9px; color: var(--gold); letter-spacing: 2px; }
+.ord-name { font-size: 11px; color: var(--darkbrown); margin-top: 3px; }
+.ord-phase { font-size: 9px; color: rgba(139,105,20,0.5); margin-top: 2px; }
+
+/* COMP TABLE */
+.comp-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; position: relative; z-index: 1; }
+.comp-table th { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 2px; color: var(--rust); border-bottom: 1px solid rgba(90,58,16,0.3); padding: 7px 10px; text-transform: uppercase; text-align: left; }
+.comp-table td { padding: 8px 10px; border-bottom: 1px dotted rgba(90,58,16,0.15); color: var(--darkbrown); vertical-align: top; line-height: 1.55; }
+.comp-table tr:last-child td { border-bottom: none; }
+
+.notice {
+  background: rgba(42,90,72,0.05);
+  border: 1px solid rgba(42,90,72,0.2);
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--verdigris);
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.sec-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--rust);
+  text-align: center;
+  text-transform: uppercase;
+  margin: 28px 0 18px;
+  position: relative;
+  z-index: 1;
+}
+.sec-title::before, .sec-title::after {
+  content: '✦';
+  margin: 0 14px;
+  font-size: 8px;
+  color: rgba(139,105,20,0.4);
+}
+
+@media (max-width: 680px) {
+  .cover-inner { padding: 40px 24px; }
+  .c-title { font-size: 46px; }
+  .static-page { padding: 36px 24px; }
+  .prose { columns: 1; }
+  .spell-wrap { padding: 36px 24px 44px; }
+  .sp-lyrics { columns: 1; }
+  .toc-grid { grid-template-columns: 1fr; }
+  .el-grid { grid-template-columns: 1fr; }
+  .luna-grid { grid-template-columns: 1fr; }
+  .orden-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ PORTADA -->
+<div id="cover">
+  <div class="cover-inner">
+    <div class="c-rune-bar">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</div>
+    <div class="c-eyebrow">Codex Aeternum</div>
+    <div class="c-title">Codex Aeternum</div>
+    <div class="c-sub">El Libro que No Tiene Fin</div>
+    <div class="c-ornament">ᛟ ✦ ᛟ</div>
+
+    <svg class="c-sigil" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(139,105,20,0.35)" stroke-width="1"/>
+      <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(139,105,20,0.15)" stroke-width="0.5"/>
+      <!-- Othala ᛟ stylized -->
+      <line x1="50" y1="20" x2="50" y2="80" stroke="rgba(139,105,20,0.5)" stroke-width="1.2"/>
+      <line x1="26" y1="37" x2="74" y2="37" stroke="rgba(139,105,20,0.5)" stroke-width="1.2"/>
+      <line x1="26" y1="37" x2="50" y2="55" stroke="rgba(139,105,20,0.5)" stroke-width="1.2"/>
+      <line x1="74" y1="37" x2="50" y2="55" stroke="rgba(139,105,20,0.5)" stroke-width="1.2"/>
+      <!-- Cross -->
+      <line x1="50" y1="12" x2="50" y2="88" stroke="rgba(139,105,20,0.25)" stroke-width="0.6"/>
+      <line x1="12" y1="50" x2="88" y2="50" stroke="rgba(139,105,20,0.25)" stroke-width="0.6"/>
+      <!-- Dots -->
+      <circle cx="50" cy="12" r="2" fill="rgba(139,105,20,0.45)"/>
+      <circle cx="88" cy="50" r="2" fill="rgba(139,105,20,0.45)"/>
+      <circle cx="50" cy="88" r="2" fill="rgba(139,105,20,0.45)"/>
+      <circle cx="12" cy="50" r="2" fill="rgba(139,105,20,0.45)"/>
+      <circle cx="50" cy="50" r="3" fill="rgba(139,105,20,0.35)"/>
+    </svg>
+
+    <div class="c-verse">
+      Veintidós puertas.<br>
+      Un solo umbral.<br>
+      Lo que entra con verdad, sale transformado.<br>
+      Lo que se abre, se cierra.<br>
+      Lo que se cierra, sostiene.
+    </div>
+
+    <div class="c-ley">
+      Ley fundamental: Nada se sostiene sin equilibrio<br>
+      entre lo que tomas, lo que das y lo que eres.
+    </div>
+
+    <button class="open-btn" onclick="openMain()">Abrir el Codex</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ MAIN -->
+<div id="main">
+
+  <div class="tab-strip">
+    <button class="tab-btn active" id="tab-intro" onclick="switchTab('intro')">Introducción</button>
+    <button class="tab-btn" id="tab-ley" onclick="switchTab('ley')">Ley · Reglas · Sigilo</button>
+    <button class="tab-btn" id="tab-toc" onclick="switchTab('toc')">Índice</button>
+    <button class="tab-btn" id="tab-b1" onclick="switchTab('b1')">Libro I</button>
+    <button class="tab-btn" id="tab-b2" onclick="switchTab('b2')">Libro II</button>
+    <button class="tab-btn" id="tab-elem" onclick="switchTab('elem')">Elementos</button>
+    <button class="tab-btn" id="tab-luna" onclick="switchTab('luna')">Ciclo Lunar</button>
+    <button class="tab-btn" id="tab-orden" onclick="switchTab('orden')">Orden del Ciclo</button>
+    <button class="tab-btn" id="tab-comp" onclick="switchTab('comp')">Caminos</button>
+  </div>
+
+  <!-- ══════════ INTRODUCCIÓN -->
+  <div class="sec active" id="sec-intro">
+    <div class="page-wrap">
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">✦ &nbsp; Introducción</div>
+        <div class="page-title">El Acto de Abrir</div>
+        <div class="page-subtitle">Qué es este libro y qué exige de quien lo sostiene</div>
+        <div class="prose">
+          <p>Este grimorio no es una colección de palabras mágicas. Es un sistema operativo: un conjunto de prácticas, principios e invocaciones que funcionan solo si hay un ser humano consciente del otro lado que los usa. Sin esa presencia, estas páginas son tinta sobre pergamino y nada más.</p>
+          <p>La magia que aquí se trabaja no es fantasía, ni es el dominio de fuerzas sobrenaturales, ni la manipulación de lo invisible para obtener favores cósmicos. Es práctica consciente: la capacidad del ser humano de alinear su atención, su energía y su acción hacia un propósito claro, y de hacerlo en diálogo activo con las fuerzas que lo rodean —la naturaleza, los ciclos, los ancestros, los elementos, la propia sombra.</p>
+          <p>Este camino nace de una síntesis personal. No es wicca, ni ásatrú, ni cábala, ni tradición celta, aunque todas esas corrientes han dejado su trazo en él. Es la práctica de alguien que ha bebido de varios ríos sin confundirlos, que honra las diferencias entre tradiciones y reconoce sus puntos de convergencia sin forzarlos.</p>
+          <p>La experiencia directa es el eje. No la fe ciega en sistemas heredados, sino la verificación personal de cada práctica: ¿funciona? ¿Cambia algo en mí? ¿Hay un antes y un después reconocibles? Si la respuesta es no, la práctica no sirve aquí, por muy hermosa que sea su formulación.</p>
+          <p>El equilibrio entre acción y percepción es también estructural. Algunos caminos espirituales trabajan casi exclusivamente hacia dentro —la meditación, la contemplación, el retiro. Otros trabajan casi exclusivamente hacia fuera —el ritual externo, el gesto, la palabra pronunciada. Este grimorio sostiene que ninguno de los dos es completo sin el otro. El reto real que acompaña cada hechizo existe precisamente por esto: la magia sin acción en el mundo ordinario no cierra el ciclo.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="page-num">✦ &nbsp; El Sentimiento Oceánico</div>
+        <div class="page-subtitle">El estado de conexión como fundamento</div>
+        <div class="prose">
+          <p>Existe un estado que no tiene nombre preciso en ninguna tradición, aunque todas lo rozan desde ángulos distintos. Es la experiencia de no ser un individuo separado del mundo, sino un nodo en una red viva. El océano que nos rodea no está fuera: también está dentro. Somos tierra, agua, fuego y aire antes de ser nombre y apellido.</p>
+          <p>Este estado no se fuerza. Aparece cuando la mente se aquieta lo suficiente para dejar de identificarse solo con sus pensamientos. Puede llegar en la meditación, ante el mar en calma, en un bosque de noche, o en el momento exacto en que un ritual se asienta y deja de ser performance para volverse presencia real.</p>
+          <p>Trabajar desde este estado —o hacia él— cambia la calidad de cualquier práctica mágica. No es escapismo ni disolución del yo: es todo lo contrario. Quien ha experimentado la unidad no desaparece en ella; vuelve al mundo ordinario más entero, más arraigado, más capaz de actuar con claridad.</p>
+          <p>Los hechizos de este grimorio están diseñados para crear las condiciones en las que ese estado puede surgir. No lo garantizan —nada puede garantizarlo— pero lo hacen posible.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="prose single">
+          <p><strong style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--rust);">Mente, cuerpo, energía, realidad.</strong> Estas cuatro dimensiones no son separables en la práctica mágica. Lo que piensas condiciona tu cuerpo. Lo que sientes en el cuerpo condiciona tu campo energético. Lo que proyectas con consistencia —desde el pensamiento y el cuerpo alineados— condiciona la realidad que encuentras. Este no es misticismo vago: es la descripción de cómo funciona la atención humana cuando se dirige con precisión.</p>
+          <p><strong style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--rust);">Responsabilidad del practicante.</strong> Este libro no tiene moral policial ni lista de prohibiciones. Solo una ley, que aparece al principio y se repite en cada hechizo de forma implícita: lo que haces vuelve. No como castigo metafísico, sino como consecuencia natural del tipo de ser que te vuelves al hacerlo. Quien trabaja con honestidad se vuelve honesto. Quien trabaja desde el miedo y la manipulación se vuelve temeroso y dependiente de la manipulación. El grimorio no te protege de ti mismo —eso lo haces tú.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ LEY · REGLAS · SIGILO -->
+  <div class="sec" id="sec-ley">
+    <div class="page-wrap">
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">I &nbsp; Fundamento</div>
+        <div class="page-title">La Ley del Codex</div>
+        <div class="page-subtitle">El principio que rige cada acto</div>
+        <div style="position:relative;z-index:1;">
+          <div class="ley-block">
+            <div class="ley-label">Ley Fundamental</div>
+            <div class="ley-text">"Nada se sostiene sin equilibrio<br>entre lo que tomas, lo que das y lo que eres."</div>
+          </div>
+          <div class="prose single">
+            <p>Esta ley no es una advertencia ni un sistema de castigos. Es la descripción de cómo funciona el tejido de la realidad cuando se trabaja con él conscientemente. El desequilibrio no produce consecuencias externas inmediatas —produce un tipo de ser que eventualmente no puede sostenerse a sí mismo. La abundancia tomada sin dar nada a cambio crea vacío. La protección construida solo hacia afuera ignora la necesidad de cambio interior. El trabajo de sombra evitado hace que la sombra dirija en silencio.</p>
+            <p>Cada hechizo de este grimorio es, en última instancia, un acto de equilibrio: entre recibir y dar, entre hablar y escuchar, entre actuar y percibir, entre fortalecer el yo y reconocer que ese yo es parte de algo más grande.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">II &nbsp; Reglas Base</div>
+        <div class="page-title">Las Normas del Sistema</div>
+        <div class="page-subtitle">Reglas que no son negociables</div>
+        <div style="position:relative;z-index:1;">
+
+          <div class="rule-block protec">
+            <div class="rule-label">Regla I · Protección</div>
+            <div class="rule-title">🛡️ Ningún hechizo sin protección previa</div>
+            <div class="rule-body">
+              <p>Antes de cualquier trabajo —especialmente los de apertura, percepción o invocación— se activa la protección. El hechizo XII (Protección Activa) es la herramienta principal. En situaciones breves, la invocación mínima de la runa Algiz (ᛉ) visualizada frente al cuerpo es suficiente. Sin este paso, el espacio queda sin definir y cualquier cosa puede entrar o proyectarse sin filtro. No es superstición: es arquitectura ritual.</p>
+            </div>
+          </div>
+
+          <div class="rule-block ritual-a">
+            <div class="rule-label">Regla II · Apertura</div>
+            <div class="rule-title">🔵 Ritual completo de apertura de círculo</div>
+            <div class="rule-body">
+              <p>Para trabajo ritual formal, se traza el círculo completo. El orden es siempre Este → Sur → Oeste → Norte, siguiendo el movimiento del sol (deosil):</p>
+              <div class="cardinal-line"><span class="cardinal">Este (Aire · Sílfide)</span><span>— Enciende incienso o abre la ventana del este. Extiende la mano: «Aire del este, testigo, guarda este espacio.»</span></div>
+              <div class="cardinal-line"><span class="cardinal">Sur (Fuego · Salamandra)</span><span>— Enciende vela al sur. «Fuego del sur, voluntad, enciende este trabajo.»</span></div>
+              <div class="cardinal-line"><span class="cardinal">Oeste (Agua · Ondina)</span><span>— Cuenco de agua al oeste. «Agua del oeste, emoción, limpia este espacio.»</span></div>
+              <div class="cardinal-line"><span class="cardinal">Norte (Tierra · Gnomo)</span><span>— Sal o piedra al norte. «Tierra del norte, raíz, sostén este trabajo.»</span></div>
+              <p style="margin-top:10px;">Al terminar el recorrido, de pie en el centro: <em>«Espíritu del eje, une lo que aquí convoco. El círculo está trazado. Está activo. Solo entra lo que trae bien.»</em></p>
+            </div>
+          </div>
+
+          <div class="rule-block cierre">
+            <div class="rule-label">Regla III · Cierre</div>
+            <div class="rule-title">🔒 El círculo siempre se cierra</div>
+            <div class="rule-body">
+              <p>Todo lo que se abre, se cierra. El hechizo XI (Cierre) es el instrumento. En el cierre del círculo, se recorren los cuatro puntos en sentido contrario (antihorario, widdershins): Norte → Oeste → Sur → Este, agradeciendo y liberando cada elemento. Nunca se abandona un espacio ritual antes de cerrar. Si la práctica no puede completarse, al menos se dice en voz alta: <em>«Queda cerrado. Todo vuelve a su sitio. Así es.»</em> y se toca el suelo con ambas manos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">III &nbsp; Sigilo</div>
+        <div class="page-title">El Sello del Codex</div>
+        <div class="page-subtitle">Construcción y uso del sigilo personal</div>
+        <div style="position:relative;z-index:1;">
+          <div class="prose single">
+            <p>Un sigilo es la cristalización visual de una intención. No es decoración: es una herramienta de enfoque que el inconsciente reconoce como señal de activación. Este grimorio trabaja con un sigilo central derivado de la siguiente frase base en presente activo:</p>
+          </div>
+
+          <div class="sigil-section">
+            <div class="sigil-label">Frase Base del Sigilo</div>
+            <div class="sigil-phrase">"Tengo fuerza, claridad, prosperidad y crecimiento."</div>
+            <div style="font-size:13px;color:var(--darkbrown);margin:12px 0 20px;font-style:italic;">
+              Eliminando vocales y letras repetidas:<br>
+              <span style="font-family:'Cinzel',serif;font-size:14px;color:var(--rust);letter-spacing:3px;margin-top:6px;display:block;">T · N · G · F · R · Z · C · L · D · P · S · M</span>
+            </div>
+
+            <svg class="sigil-svg" width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <!-- Outer circle -->
+              <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(139,105,20,0.4)" stroke-width="1.2"/>
+              <circle cx="80" cy="80" r="62" fill="none" stroke="rgba(139,105,20,0.15)" stroke-width="0.7"/>
+              <!-- Elemental cross -->
+              <line x1="80" y1="14" x2="80" y2="146" stroke="rgba(139,105,20,0.35)" stroke-width="1"/>
+              <line x1="14" y1="80" x2="146" y2="80" stroke="rgba(139,105,20,0.35)" stroke-width="1"/>
+              <!-- Diagonal -->
+              <line x1="30" y1="30" x2="130" y2="130" stroke="rgba(139,105,20,0.18)" stroke-width="0.7"/>
+              <line x1="130" y1="30" x2="30" y2="130" stroke="rgba(139,105,20,0.18)" stroke-width="0.7"/>
+              <!-- Othala central -->
+              <line x1="80" y1="44" x2="80" y2="116" stroke="rgba(139,105,20,0.65)" stroke-width="1.6"/>
+              <line x1="52" y1="62" x2="108" y2="62" stroke="rgba(139,105,20,0.65)" stroke-width="1.6"/>
+              <line x1="52" y1="62" x2="80" y2="85" stroke="rgba(139,105,20,0.65)" stroke-width="1.6"/>
+              <line x1="108" y1="62" x2="80" y2="85" stroke="rgba(139,105,20,0.65)" stroke-width="1.6"/>
+              <!-- T crossbar at top -->
+              <line x1="68" y1="44" x2="92" y2="44" stroke="rgba(139,105,20,0.65)" stroke-width="1.6"/>
+              <!-- N on left -->
+              <line x1="52" y1="55" x2="52" y2="70" stroke="rgba(139,105,20,0.55)" stroke-width="1.3"/>
+              <line x1="52" y1="55" x2="56" y2="70" stroke="rgba(139,105,20,0.55)" stroke-width="1.3"/>
+              <!-- Anchor dots -->
+              <circle cx="80" cy="14" r="2.5" fill="rgba(139,105,20,0.55)"/>
+              <circle cx="146" cy="80" r="2.5" fill="rgba(139,105,20,0.55)"/>
+              <circle cx="80" cy="146" r="2.5" fill="rgba(139,105,20,0.55)"/>
+              <circle cx="14" cy="80" r="2.5" fill="rgba(139,105,20,0.55)"/>
+              <circle cx="80" cy="80" r="4" fill="rgba(139,105,20,0.4)"/>
+              <!-- Small rune accents -->
+              <text x="76" y="12" fill="rgba(139,105,20,0.5)" font-size="8" font-family="serif">ᛟ</text>
+            </svg>
+
+            <div class="sigil-phrase">Sigilo del Codex Aeternum</div>
+            <div class="sigil-letters">ᛟ · ᚠ · ᛊ · ᛏ · ᛟ</div>
+
+            <div style="font-size:13px;line-height:1.8;color:var(--darkbrown);margin-top:20px;text-align:left;max-width:500px;margin-left:auto;margin-right:auto;">
+              <strong style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--rust);">Uso ritual:</strong> El sigilo se traza en el aire frente al cuerpo al inicio de cualquier sesión de trabajo, o se visualiza en el centro del pecho durante el ritual de apertura del círculo. También puede dibujarse físicamente en papel o en cera y usarse como punto focal durante la recitación. Al cerrar el trabajo, se visualiza el sigilo disolviéndose en luz —el anclaje de la intención en lo invisible.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ TOC -->
+  <div class="sec" id="sec-toc">
+    <div class="page-wrap">
+      <div class="toc-section">
+        <div class="sec-title">Libro I · Los Once Originales</div>
+        <div class="toc-grid" id="toc1"></div>
+        <div class="divider"></div>
+        <div class="sec-title">Libro II · Once de Completitud</div>
+        <div class="toc-grid" id="toc2"></div>
+        <div class="divider"></div>
+        <div class="sec-title">Apéndices</div>
+        <div class="toc-grid">
+          <div class="toc-item" onclick="switchTab('elem')"><span class="ti-r">🜂</span><span class="ti-name">Invocaciones Elementales</span><span class="ti-badge">5 seres</span></div>
+          <div class="toc-item" onclick="switchTab('luna')"><span class="ti-r">☽</span><span class="ti-name">Ciclo Lunar Completo</span><span class="ti-badge">4 fases</span></div>
+          <div class="toc-item" onclick="switchTab('orden')"><span class="ti-r">ᛟ</span><span class="ti-name">Orden del Ciclo Ritual</span><span class="ti-badge">22 hechizos</span></div>
+          <div class="toc-item" onclick="switchTab('comp')"><span class="ti-r">✦</span><span class="ti-name">Meditación · Cábala · Caminos</span><span class="ti-badge">Comparativa</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ BOOK 1 -->
+  <div class="sec" id="sec-b1">
+    <div class="page-wrap">
+      <div id="pages1"></div>
+    </div>
+    <div class="spell-nav">
+      <button class="nav-btn" id="p1-prev" onclick="nav1(-1)">← Anterior</button>
+      <div class="nav-ind">
+        <div id="p1-ind"></div>
+        <div class="rdots" id="p1-dots"></div>
+      </div>
+      <button class="nav-btn" id="p1-next" onclick="nav1(1)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ══════════ BOOK 2 -->
+  <div class="sec" id="sec-b2">
+    <div class="page-wrap">
+      <div id="pages2"></div>
+    </div>
+    <div class="spell-nav">
+      <button class="nav-btn" id="p2-prev" onclick="nav2(-1)">← Anterior</button>
+      <div class="nav-ind">
+        <div id="p2-ind"></div>
+        <div class="rdots" id="p2-dots"></div>
+      </div>
+      <button class="nav-btn" id="p2-next" onclick="nav2(1)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ══════════ ELEMENTOS -->
+  <div class="sec" id="sec-elem">
+    <div class="page-wrap">
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">✦ Apéndice I</div>
+        <div class="page-title">Los Cuatro Elementos</div>
+        <div class="page-subtitle">y sus Seres del Umbral</div>
+        <div class="notice">Estas invocaciones son actos de reconocimiento, no de mando. Honran la cualidad del elemento y al ser que lo habita. No se lanza ningún trabajo sin haber invocado los elementos y sin cerrarlo después con el hechizo XI o la fórmula de cierre.</div>
+
+        <div class="el-grid">
+          <div class="el-card">
+            <div class="el-head"><span class="el-sym">🜁</span><div><div class="el-name">Aire</div><div class="el-being">Sílfide · Este · Palabra</div></div></div>
+            <div class="el-body"><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Simbolismo:</strong> pensamiento, palabra, visión, inspiración, movimiento, claridad intelectual.<br><br><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Gesto ritual:</strong> Abrir las manos con las palmas hacia afuera. Respirar profundo tres veces. Abre una ventana al este si es posible.</div>
+            <div class="el-inv">"Aire libre, aliento fino,<br>sílfide del cielo abierto,<br>trae claridad a mi mente<br>y dirección a mi palabra."</div>
+            <div class="el-reto">Reto: Di una verdad con calma y sin rodeos.</div>
+          </div>
+          <div class="el-card">
+            <div class="el-head"><span class="el-sym">🜂</span><div><div class="el-name">Fuego</div><div class="el-being">Salamandra · Sur · Acción</div></div></div>
+            <div class="el-body"><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Simbolismo:</strong> transformación, coraje, purificación, voluntad activa, cambio irreversible.<br><br><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Gesto ritual:</strong> Encender vela roja al sur. Pasar las manos cerca del calor —nunca en él— sintiendo la temperatura.</div>
+            <div class="el-inv">"Fuego primero, llama viva,<br>salamandra del cambio claro,<br>enciende en mí valor y fuerza,<br>sin exceso, sin daño, sin desvío."</div>
+            <div class="el-reto">Reto: Haz hoy la acción que llevas evitando.</div>
+          </div>
+          <div class="el-card">
+            <div class="el-head"><span class="el-sym">🜄</span><div><div class="el-name">Agua</div><div class="el-being">Ondina · Oeste · Sentir</div></div></div>
+            <div class="el-body"><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Simbolismo:</strong> emoción, intuición, sueño, memoria profunda, suavidad que disuelve.<br><br><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Gesto ritual:</strong> Cuenco de agua al oeste. Tocar la superficie con los dedos antes de recitar.</div>
+            <div class="el-inv">"Agua honda, agua serena,<br>ondina de espejo y cauce,<br>lava en mí pena y ruido,<br>y deja solo lo verdadero."</div>
+            <div class="el-reto">Reto: Nombra una emoción sin esconderla ni justificarla.</div>
+          </div>
+          <div class="el-card">
+            <div class="el-head"><span class="el-sym">🜃</span><div><div class="el-name">Tierra</div><div class="el-being">Gnomo · Norte · Raíz</div></div></div>
+            <div class="el-body"><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Simbolismo:</strong> base, hogar, cuerpo, trabajo concreto, paciencia, estabilidad duradera.<br><br><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Gesto ritual:</strong> Sal o piedra al norte. Tocar el suelo con la palma completa al inicio.</div>
+            <div class="el-inv">"Tierra firme, piedra antigua,<br>gnomo guardián de raíz y casa,<br>afirma mis pasos y mi centro,<br>y haz estable lo que construyo."</div>
+            <div class="el-reto">Reto: Ordena un espacio físico o cuida una tarea concreta pendiente.</div>
+          </div>
+        </div>
+
+        <div class="el-card" style="margin-top:0;">
+          <div class="el-head"><span class="el-sym">✦</span><div><div class="el-name">Espíritu · Éter</div><div class="el-being">La Llama del Centro · Eje sin rumbo fijo</div></div></div>
+          <div class="el-body">El espíritu es el eje que une los cuatro elementos sin pertenecer a ninguno. No tiene ser único —en distintas tradiciones se le llama Aether, Akasha, el Centro, Yggdrasil, el Quinto Principio— pero su función es la misma: mantener la coherencia del sistema. En este grimorio se trabaja como la conciencia presente que abre, sostiene y cierra cada práctica.<br><br><strong style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--rust);">Gesto ritual:</strong> Mano derecha en el pecho. Mano izquierda en el vientre. Sin elemento exterior —el espíritu eres tú cuando estás presente.</div>
+          <div class="el-inv">"Centro sutil, llama sin forma,<br>espíritu que une sin forzar,<br>guarda en mí medida y presencia,<br>para abrir, sostener y cerrar."</div>
+          <div class="el-reto">Reto: Actúa hoy de forma coherente con lo que dices creer.</div>
+        </div>
+
+        <div class="box ritual" style="margin-top:24px;">
+          <span class="box-lbl">Invocación Elemental Completa · Antes de cualquier hechizo</span>
+          <div style="font-style:italic;font-size:15px;line-height:2;color:var(--darkbrown);text-align:center;padding:10px 0;position:relative;z-index:1;">
+            "Aire que aclara,<br>Fuego que enciende,<br>Agua que limpia,<br>Tierra que sostiene,<br>Espíritu que ordena:<br>estad en paz conmigo y en su justa medida."
+          </div>
+          <div style="text-align:center;margin-top:14px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--verdigris);position:relative;z-index:1;">
+            Cierre: "Honro, no impongo. Recibo, no fuerzo. Abro con respeto y cierro con verdad."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ LUNA -->
+  <div class="sec" id="sec-luna">
+    <div class="page-wrap">
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">☽ Apéndice II</div>
+        <div class="page-title">El Ciclo Lunar</div>
+        <div class="page-subtitle">Fases y asignación de los 22 hechizos</div>
+        <div class="notice">La luna no determina cuándo se hace un hechizo —la necesidad lo determina. La fase lunar amplifica la resonancia del trabajo. Como toda herramienta, su uso inteligente mejora el resultado. Su ignorancia no lo cancela, pero sí reduce su potencia.</div>
+
+        <div class="luna-grid">
+          <div class="luna-card nueva">
+            <div class="luna-sym">🌑</div>
+            <div class="luna-name">Luna Nueva · Percepción Interior</div>
+            <div class="luna-desc">La luna nueva es el momento de mayor oscuridad y de mayor potencial. La energía se vuelve hacia adentro. Es el tiempo del silencio fértil, la semilla antes de brotar, la pregunta antes de la respuesta. Ideal para trabajo interno, exploración de la sombra y percepción sutil.</div>
+            <div class="luna-spells">Hechizos afines: VI · VII · IX · XIV · XVI</div>
+          </div>
+          <div class="luna-card creciente">
+            <div class="luna-sym">🌒</div>
+            <div class="luna-name">Luna Creciente · Expansión y Abundancia</div>
+            <div class="luna-desc">La luz crece. La energía se mueve hacia afuera y hacia arriba. Es el tiempo del crecimiento, de atraer lo que se desea, de fortalecer lo que se ha sembrado. Cualquier trabajo de expansión —material, relacional o energético— se potencia aquí.</div>
+            <div class="luna-spells">Hechizos afines: I · II · IV · V · XV · XVII · XVIII</div>
+          </div>
+          <div class="luna-card llena">
+            <div class="luna-sym">🌕</div>
+            <div class="luna-name">Luna Llena · Invocación y Poder</div>
+            <div class="luna-desc">La luna llena es el punto de máxima energía. Ilumina lo que está oculto y amplifica cualquier intención con intensidad inusual. Es el momento de invocar, de declarar, de consagrar. También de trabajar con lo que la luz revela que preferiríamos no ver.</div>
+            <div class="luna-spells">Hechizos afines: VIII · X · XXI · XXII · III</div>
+          </div>
+          <div class="luna-card menguante">
+            <div class="luna-sym">🌘</div>
+            <div class="luna-name">Luna Menguante · Limpieza y Liberación</div>
+            <div class="luna-desc">La luz decrece. Es el tiempo de soltar, limpiar, cortar lo que ya no sirve. La energía se mueve hacia el final —de ciclos, hábitos, vínculos, cargas. Ideal para banishing, purificación y trabajo de corte.</div>
+            <div class="luna-spells">Hechizos afines: XI · XII · XIII · XIX · XX</div>
+          </div>
+        </div>
+
+        <div class="box ritual" style="margin-top:20px;">
+          <span class="box-lbl">Nota Importante</span>
+          <div style="font-size:14px;line-height:1.8;color:var(--darkbrown);position:relative;z-index:1;">El ciclo lunar no cancela otras consideraciones temporales. Si necesitas hacer un hechizo de protección (XII) urgentemente, hazlo —independientemente de la fase lunar. La asignación aquí indicada es para cuando hay libertad de elegir el momento. En situaciones de necesidad real, la necesidad manda.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ ORDEN -->
+  <div class="sec" id="sec-orden">
+    <div class="page-wrap">
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">ᛟ Apéndice III</div>
+        <div class="page-title">Orden del Ciclo Completo</div>
+        <div class="page-subtitle">La lógica de los 22 hechizos</div>
+        <div class="notice">El orden no es arbitrario. Sigue la lógica de los rituales clásicos de todas las tradiciones: primero te preparas, luego te fortaleces, abres, trabajas, integras, cierras. Saltarse pasos es posible, pero entender el porqué del orden hace al practicante más consciente y más eficaz.</div>
+
+        <div class="sec-title">Libro I · Preparación y Crecimiento</div>
+        <div class="orden-grid" id="orden-grid1"></div>
+
+        <div class="sec-title" style="margin-top:24px;">Libro II · Completitud e Integración</div>
+        <div class="orden-grid" id="orden-grid2"></div>
+
+        <div class="box ritual" style="margin-top:24px;">
+          <span class="box-lbl">Lógica Estructural del Ciclo</span>
+          <div style="font-size:14px;line-height:1.85;color:var(--darkbrown);position:relative;z-index:1;">
+            <strong style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--rust);">Fase I · Preparación (I–IV):</strong> Abundancia, Salud, Camino, Valor. El practicante se asienta y se fortalece antes de abrir nada.<br>
+            <strong style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--rust);">Fase II · Fortalecimiento (V–VII):</strong> Recuperación, Claridad Mental, Eje Interior. El yo se organiza desde la raíz.<br>
+            <strong style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--rust);">Fase III · Apertura y Trabajo (VIII–X):</strong> Apertura Respetuosa, Percepción Sutil, Pacto Justo. El sistema se abre hacia afuera con intención clara.<br>
+            <strong style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--rust);">Fase IV · Cierre del Libro I (XI):</strong> Cierre. Sin excepción. El primero de los dos grandes cierres.<br>
+            <strong style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--rust);">Fase V · Completitud (XII–XXII):</strong> El Libro II añade la estructura que da solidez al sistema: protección, limpieza, sombra, vínculos, visión, voluntad, naturaleza, hogar, liberación, invocación y gratitud. El ciclo termina siempre con el XXII.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ CAMINOS -->
+  <div class="sec" id="sec-comp">
+    <div class="page-wrap">
+      <div class="static-page">
+        <div class="pg-lines"></div>
+        <div class="page-num">✦ Apéndice IV</div>
+        <div class="page-title">Convergencia y Divergencia</div>
+        <div class="page-subtitle">Cómo dialogan los caminos de este grimorio</div>
+        <div class="notice">Esta comparativa no coloca una tradición sobre otra. Su propósito es dar al practicante un mapa claro de dónde los caminos convergen y dónde divergen, para trabajar con coherencia y sin contradicciones involuntarias. Cada tradición tiene su integridad propia.</div>
+
+        <div class="sec-title">Meditación Contemplativa</div>
+        <div class="prose single">
+          <p>La meditación oriental —vipassana, zen, mindfulness— y la práctica de este grimorio comparten algo esencial: la presencia. Ambos caminos saben que la mente en silencio percibe más que la mente ocupada. Los hechizos VI (Claridad Mental) y IX (Percepción Sutil) son funcionalmente equivalentes a la práctica de atención plena: no buscar, no forzar, observar. La diferencia clave: la meditación oriental trabaja hacia la disolución del yo, mientras que este grimorio trabaja hacia el fortalecimiento del yo sagrado. Son movimientos opuestos que parten del mismo silencio.</p>
+        </div>
+
+        <table class="comp-table">
+          <tr><th>Aspecto</th><th>Meditación Contemplativa</th><th>Codex Aeternum</th></tr>
+          <tr><td>El yo</td><td>Ilusión a superar</td><td>Instrumento sagrado a fortalecer</td></tr>
+          <tr><td>El silencio</td><td>Objetivo final</td><td>Condición de percepción</td></tr>
+          <tr><td>La voz</td><td>Secundaria (mantras como soporte)</td><td>Central: el hechizo es voz activa</td></tr>
+          <tr><td>El cuerpo</td><td>A trascender o neutralizar</td><td>El primer altar del ritual</td></tr>
+          <tr><td>Convergencia</td><td colspan="2" style="color:var(--verdigris);font-style:italic;">Presencia, observación sin juicio, respiración consciente, no-fuerza</td></tr>
+        </table>
+
+        <div class="divider"></div>
+        <div class="sec-title">Cábala Occidental</div>
+        <div class="prose single">
+          <p>La cábala estructura la realidad en diez sefirot conectadas por 22 senderos —el mismo número de hechizos de este grimorio, una convergencia que no es casual sino estructural. Su Árbol de la Vida es un mapa cosmológico de cómo lo divino se manifiesta en lo material. La convergencia con este grimorio es profunda: la idea de que existe una estructura invisible que ordena la realidad visible, el pacto y el juramento como acto sagrado, y el movimiento dual de descenso (manifestación) y ascenso (retorno). La cábala también insiste en que el ritual tiene estructura obligatoria —apertura, trabajo, cierre— y que el practicante es responsable de lo que abre.</p>
+        </div>
+
+        <table class="comp-table">
+          <tr><th>Aspecto</th><th>Cábala</th><th>Codex Aeternum</th></tr>
+          <tr><td>Mapa del cosmos</td><td>Árbol de la Vida: 10 sefirot, 22 senderos</td><td>Yggdrasil, 4 elementos + espíritu, 22 hechizos</td></tr>
+          <tr><td>Estructura ritual</td><td>BRP: apertura, trabajo, cierre</td><td>Círculo elemental, trabajo, cierre XI</td></tr>
+          <tr><td>La sombra</td><td>Qliphoth: aspecto oscuro del árbol</td><td>Hechizo XIV: trabajo activo de sombra</td></tr>
+          <tr><td>El pacto</td><td>Brit: acuerdo sagrado con consecuencias</td><td>Hechizo X: Pacto Justo</td></tr>
+          <tr><td>El cierre</td><td>LBRP de cierre: obligatorio</td><td>Hechizo XI: innegociable</td></tr>
+          <tr><td>Convergencia</td><td colspan="2" style="color:var(--verdigris);font-style:italic;">El equilibrio es ley. La palabra tiene poder. El practicante responde de lo que abre.</td></tr>
+        </table>
+
+        <div class="divider"></div>
+        <div class="sec-title">El Sentimiento Oceánico como Puente</div>
+        <div class="prose single">
+          <p>Tanto la mística contemplativa como la cábala, tanto la tradición celta como el ásatrú, tienen momentos en los que el practicante avanzado reporta la misma experiencia: la disolución de la frontera entre el yo y el todo. El océano que se siente dentro y fuera al mismo tiempo. Este grimorio no la llama iluminación, no la llama satori, no la llama unio mystica. La llama sentimiento oceánico: un estado funcional, reconocible, que cambia la calidad del trabajo mágico sin necesitar etiqueta doctrinal alguna. Cuando aparece, se trabaja desde ahí. Cuando no aparece, se trabaja igual, sabiendo que es posible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ═══════════════════════════════════════════ DATA
+
+const moonMap = {
+  "I":"🌒","II":"🌒","III":"🌕","IV":"🌒","V":"🌒","VI":"🌑",
+  "VII":"🌑","VIII":"🌕","IX":"🌑","X":"🌕","XI":"🌘",
+  "XII":"🌘","XIII":"🌘","XIV":"🌑","XV":"🌒","XVI":"🌑",
+  "XVII":"🌒","XVIII":"🌒","XIX":"🌘","XX":"🌘","XXI":"🌕","XXII":"🌕"
+};
+
+const B1 = [
+  { num:"I", title:"Abundancia Viva", sub:"Oro y Fortuna", r:"ᚠ", tcolor:"#543508", trad:"Externo · Expansión",
+    purpose:"Atraer prosperidad, estabilidad y expansión material. La runa Fehu (ᚠ) gobierna la riqueza móvil y el flujo de fortuna. En la tradición nórdica, la tierra y el río son canales de abundancia que devuelven lo dado multiplicado.",
+    clase:"ext",
+    ritual:{ tiempo:"Jueves al amanecer", elementos:"Vela dorada · Pan artesanal · Moneda de metal · Copa con hidromiel o agua · Cuenco con sal", espacio:"Aire libre o junto a ventana abierta al este. Preferible sobre tierra.", proc:["Limpia la mesa con agua y sal. Di: «Acepto lo que doy y lo que recibo.»","Coloca vela al centro, pan al norte, moneda al este, copa al oeste.","Toma la copa. Derrama tres gotas al suelo antes de beber —blót menor a la tierra.","Recita el hechizo con voz firme y cadencia natural.","Al llegar al coro, alza la copa. Al terminar, sopla suavemente: invoca el viento como testigo.","Guarda la moneda 7 días. Al octavo, déjala en un cruce o dónala."] },
+    reto:"Durante 7 días: no hagas gastos impulsivos, guarda una moneda diaria, abre una puerta real de oportunidad: pedir algo, organizar cuentas, vender algo.",
+    cabala:"Chesed (cuarta sefirá) rige la expansión y la abundancia. El jueves es el día de Júpiter-Chesed. La convergencia con Thor es geománticamente coherente.",
+    seal:"Lo que doy vuelve. Lo que reclamo llega.",
+    lyrics:[
+      {t:"v",l:["Que el viento sople a mi favor,","que el sol bendiga mi sendero,","que nunca falte pan ni calor,","ni risa viva en mi hogar."]},
+      {t:"v",l:["La tierra guía mi caminar,","el río arrastra la pena,","cada paso siembra prosperidad,","y vuelve el doble al dar."]},
+      {t:"b",l:["No espero suerte, la forjaré,","mi destino escucharé,","con mano firme reclamaré,","lo que es mío vendrá."]},
+      {t:"c",l:["Oro y fortuna vienen a mí,","canto y decreto: así ha de ser,","viento y fuego laten en mí,","¡riqueza y suerte, venid!"]},
+      {t:"v",l:["La abundancia sigue mi voz,","el miedo pierde mi rastro,","en cada intento crece el valor,","y el oro responde hoy."]},
+      {t:"b",l:["No hay azar que mande en mí,","yo marco el rumbo aquí,","si el oro duerme, vendrá hacia mí,","responde a mi voz."]},
+      {t:"c",l:["Oro y fortuna vienen a mí,","ya lo cantamos, ya es verdad,","viento y fuego viven en mí,","¡riqueza y suerte, llegad!"]}
+    ]
+  },
+  { num:"II", title:"Vitalidad y Salud", sub:"El Fuego Interno", r:"ᚢ", tcolor:"#183318", trad:"Interno · Fortalecimiento",
+    purpose:"Fortalecer cuerpo, mente y energía vital. Uruz (ᚢ) representa la fuerza del uro salvaje y la salud indomable. El domingo bajo el sol activa el plano físico y el fuego interior.",
+    clase:"int",
+    ritual:{ tiempo:"Domingo al mediodía", elementos:"Vela roja · Vaso de agua · Ramita de romero o laurel · Manos sobre el pecho", espacio:"Al aire libre o frente a ventana soleada. Descalzo sobre tierra o madera.", proc:["Enciende la vela roja.","Pasa el romero sobre el agua tres veces: «Limpia, sana, fortalece.»","Coloca ambas manos en el pecho. Respira 9 veces —número sagrado nórdico.","Recita el hechizo sintiendo el latido bajo las manos.","Al decir «¡salud y libertad!» bebe el agua lentamente.","Moja los dedos y toca frente, pecho y vientre. Apaga la vela con los dedos húmedos —nunca soplar."] },
+    reto:"Durante 9 días: mejorar el sueño, caminar al menos 15 minutos, beber más agua, eliminar una conducta que drene energía.",
+    cabala:"Geburah rige la fuerza y el rigor del cuerpo. Tiferet, el centro del árbol, es la salud y la belleza del ser completo.",
+    seal:"La vida arde en mí sin fin.",
+    lyrics:[
+      {t:"v",l:["Late la vida en mi interior,","como un fuego que no muere,","cada aliento trae vigor,","cada paso me sostiene."]},
+      {t:"v",l:["La tierra sana bajo mis pies,","el viento limpia mi mente,","soy raíz, soy fuerza y fe,","y el pulso vive en mi ser."]},
+      {t:"b",l:["No hay cadena sobre mí,","ni destino que me ate,","lo que soy crece en mí,","nadie puede frenarme."]},
+      {t:"c",l:["Vida y fuerza viven en mí,","sangre y fuego laten ya,","cuerpo y alma firmes aquí,","¡salud y libertad!"]},
+      {t:"v",l:["El miedo cae, no vuelve más,","mi espíritu se alza fuerte,","cada herida queda atrás,","y se transforma en poder."]},
+      {t:"b",l:["No hay caída sin subir,","ni dolor que me derrumbe,","lo que soy vive en mí,","y jamás se consume."]},
+      {t:"c",l:["Vida y fuerza viven en mí,","ya no hay nada que temer,","cuerpo y alma brillan así,","¡he venido a renacer!"]}
+    ]
+  },
+  { num:"III", title:"Camino y Dirección", sub:"Las Runas del Rumbo", r:"ᚱ", tcolor:"#2a1665", trad:"Interno · Orientación",
+    purpose:"Claridad de rumbo, decisiones correctas y guía. Raidō (ᚱ) es el viaje con propósito, Algiz (ᛉ) protección divina, Sowilō (ᛊ) la luz solar, Ehwaz (ᛖ) el avance firme.",
+    clase:"int",
+    ritual:{ tiempo:"Lunes antes de una decisión importante, al amanecer o al atardecer.", elementos:"Papel o piedra con las runas: ᚱ ᛉ ᛊ ᛖ · Vela blanca opcional", espacio:"De pie, mirando al norte —dirección de los ancestros.", proc:["Escribe o traza las cuatro runas. Pronúncialas tres veces antes de empezar.","Coloca el papel frente a ti. Enciende la vela si la usas.","Recita el hechizo mirando al frente, sin bajar la vista.","Al llegar al canto de runas, pronuncia cada nombre con pausa: «Raidō… Algiz… Sowilō… Ehwaz…»","Al terminar, da un paso físico al frente —acto de compromiso. Sin él el hechizo no cierra.","Quema el papel si lo escribiste."] },
+    reto:"En las siguientes 48 horas, toma una decisión concreta que llevas posponiendo.",
+    cabala:"Hod rige la mente y la dirección. Las cuatro runas son equivalentes funcionales a los cuatro instrumentos del mago.",
+    seal:"Veo, sé y avanzo.",
+    lyrics:[
+      {t:"v",l:["Viento al frente, limpia mi andar,","marca el rumbo, me hace avanzar,","dejo atrás lo que no es verdad,","veo claro al caminar."]},
+      {t:"v",l:["La tierra firme bajo mi pie,","cada paso me sostiene bien,","no hay sendero que no pueda abrir,","si avanzo firme sin desistir."]},
+      {t:"b",l:["Ojos abiertos, mente en el lugar,","todo habla al caminar,","no hay engaño que me haga caer,","veo el camino tal como es."]},
+      {t:"c",l:["Camino abierto ante mí,","nada me va a desviar,","viento y tierra guían aquí,","sé por dónde avanzar."]},
+      {t:"rc",l:["Raidō… guíame bien,","Algiz… protégeme,","Sowilō… luz para ver,","Ehwaz… firme avanzar."]},
+      {t:"c",l:["Camino abierto ante mí,","ya no hay nada que temer,","cielo y tierra viven en mí,","sé muy bien a dónde ir."]}
+    ]
+  },
+  { num:"IV", title:"Valor", sub:"El Corazón Firme", r:"ᛏ", tcolor:"#2a1665", trad:"Interno · Fortalecimiento",
+    purpose:"Superar el miedo y actuar con coraje. Tiwaz (ᛏ) pertenece a Tyr, que sacrificó su mano para encadenar a Fenrir. El valor en la tradición nórdica no es ausencia de miedo —es reconocerlo y avanzar.",
+    clase:"int",
+    ritual:{ tiempo:"Martes —día de Tyr— o antes de enfrentar algo temido.", elementos:"Solo el cuerpo y la voz. Posibilidad de tambor pequeño o golpe en el pecho.", espacio:"De pie. Pies separados a la anchura de los hombros. Postura de guerrero.", proc:["Cierra el puño y ponlo sobre el corazón. Siente el latido.","Golpea suavemente el pecho al ritmo del corazón mientras recitas.","Aumenta la intensidad con cada estrofa —no es gritar, es afirmar.","En cada «Corazón…» haz un pequeño golpe al pecho.","Termina con un paso fuerte hacia adelante y golpe en el suelo. Esto sella el compromiso.","Di tu nombre en voz alta al terminar."] },
+    reto:"Ese mismo día: manda el mensaje importante, pon el límite, pide lo justo, preséntate a algo.",
+    cabala:"Geburah rige la fortaleza y el rigor. La Fuerza del Tarot —sostener al león sin aplastarlo— es exactamente este hechizo.",
+    seal:"Lo que tiembla, me impulsa.",
+    lyrics:[
+      {t:"v",l:["Late fuerte dentro de mí,","no lo niego, lo escucho aquí,","es el pulso que pide avanzar,","aunque el cuerpo quiera dudar."]},
+      {t:"v",l:["No lo escondo, no lo haré,","lo sostengo y sigo en pie,","lo que tiembla en mi interior,","es la puerta hacia el valor."]},
+      {t:"b",l:["Si lo siento, es real,","y no me va a dominar,","lo atravieso al caminar,","y me empuja a avanzar."]},
+      {t:"c",l:["Corazón, sigue aquí,","da un paso y rompe el temblor,","lo que vive dentro en mí,","se convierte en valor."]},
+      {t:"v",l:["No soy hierro sin doblar,","soy quien vuelve a intentar,","cada vez que caigo hoy,","me levanto siendo más."]},
+      {t:"c",l:["Sigo en pie, sigo aquí,","nada me va a romper,","lo que vive dentro en mí,","es lo que me hace vencer."]}
+    ]
+  },
+  { num:"V", title:"Recuperación", sub:"Volver a Estar en Pie", r:"ᛚ", tcolor:"#183318", trad:"Interno · Restauración",
+    purpose:"Recuperar energía vital tras el cansancio, la caída o el agotamiento. Tocar la tierra descalzo restituye lo perdido. La respiración es el primer acto mágico.",
+    clase:"int",
+    ritual:{ tiempo:"Cuando sea necesario. Sin día fijo —responde a la necesidad.", elementos:"Solo la respiración y el contacto con el suelo. Preferible descalzo.", espacio:"De pie, pies firmes. Si no puedes, sentado con espalda recta y pies en el suelo.", proc:["Planta los pies. Siente el suelo. Toma conciencia del peso del cuerpo.","Inhala por nariz contando 4. Retén 2. Exhala por boca con fuerza —con sonido.","Repite 3 veces antes de comenzar.","Recita con ritmo corporal —deja que el cuerpo se balancee levemente.","En los coros con «¡HEY!» golpea el muslo o el suelo.","Al terminar, golpea el suelo con el pie una vez. Cierra los ojos 30 segundos."] },
+    reto:"Haz una sola cosa que te reorganice físicamente: ordenar, ducharte, caminar, ventilar.",
+    cabala:"Yesod rige la luna y la base de la vitalidad. Este hechizo restablece el flujo entre el cuerpo (Malkut) y la energía vital (Yesod). La respiración es el puente.",
+    seal:"Respiro y regreso.",
+    lyrics:[
+      {t:"cl",l:["¡Eh! ¡Eh!","¡En pie otra vez!"]},
+      {t:"v",l:["Pies en tierra, firme aquí,","siento el suelo bajo mí,","tomo aire al respirar,","y mi cuerpo vuelve a estar."]},
+      {t:"v",l:["Suelto el peso al exhalar,","no lo dejo regresar,","cada aliento trae calor,","y despierta el corazón."]},
+      {t:"b",l:["Respiro y sigo aquí,","todo vuelve a fluir,","lo que estaba en tensión,","pierde fuerza y presión."]},
+      {t:"c",l:["¡Tierra y aire viven en mí! (¡HEY!)","¡Vuelvo a sentirme bien! (¡HEY!)","¡Lo que estaba vuelve a subir! (¡HEY!)","¡Firme estoy otra vez!"]},
+      {t:"c",l:["¡Tomo aire, dejo ir! (¡HEY!)","¡Sigo en pie sin caer! (¡HEY!)","¡Lo que vive dentro en mí! (¡HEY!)","¡Me sostiene otra vez!"]}
+    ]
+  },
+  { num:"VI", title:"Claridad Mental", sub:"Silencio y Verdad", r:"ᛊ", tcolor:"#183318", trad:"Interno · Percepción",
+    purpose:"Eliminar confusión y ruido mental. Ver con claridad lo que es real. En la tradición druídica, el silencio no es vacío: es el espacio donde habla la verdad.",
+    clase:"int",
+    ritual:{ tiempo:"Luna menguante o nueva. Horas nocturnas preferiblemente.", elementos:"Silencio. Vela blanca opcional. Ningún dispositivo encendido. Cuenco con agua.", espacio:"Sentado cómodamente, espalda recta. Oscuridad o penumbra.", proc:["Apaga o silencia dispositivos. Siéntate 3 minutos antes de comenzar.","Mira la superficie del agua unos segundos.","Recita muy lentamente. Cada verso es una afirmación, no una pregunta.","Si surge un pensamiento invasivo, déjalo pasar como nube —sin luchar.","Al terminar, permanece 5 minutos en silencio. No busques respuestas.","Escribe en papel (no en pantalla) lo primero que surja al abrir los ojos."] },
+    reto:"Escribe en papel qué es un hecho, qué es miedo, y qué decisión concreta toca ahora.",
+    cabala:"Binah es la comprensión profunda, el silencio que contiene. Hod es la mente ordenada. Este hechizo trabaja el eje Binah-Hod.",
+    seal:"Veo lo real.",
+    lyrics:[
+      {t:"cl",l:["Silencio en mí…","Todo está aquí."]},
+      {t:"v",l:["Respiro y miro alrededor,","sin prisa, sin tensión,","lo que veo es lo que es,","sin disfraz ni distorsión."]},
+      {t:"b",l:["No hay duda que me ate,","ni pensamiento que me arrastre,","si aparece, lo veré,","y no me dominará."]},
+      {t:"c",l:["Veo claro, estoy aquí,","nada me va a confundir,","lo que es verdad vive en mí,","sé muy bien cómo seguir."]},
+      {t:"v",l:["Si el ruido quiere volver,","lo dejo pasar sin más,","no lo sigo, no me ve,","pierde fuerza y se va."]},
+      {t:"c",l:["Silencio y dirección,","calma en el corazón,","no hay prisa ni presión,","solo clara decisión."]}
+    ]
+  },
+  { num:"VII", title:"El Eje Interior", sub:"Energía Ascendente", r:"ᛇ", tcolor:"#183318", trad:"Interno · Eje",
+    purpose:"Despertar la energía interna y alinearse con el eje propio. El Yggdrasil es el eje del mundo. Este hechizo trabaja ese principio dentro del cuerpo: conectar raíz con cima.",
+    clase:"int",
+    ritual:{ tiempo:"Al amanecer —cuando la energía empieza a subir con el sol.", elementos:"Solo el cuerpo. Postura recta. Preferible junto a un árbol o con la espalda apoyada en uno.", espacio:"Espacio tranquilo. Descalzo si es posible.", proc:["De pie o sentado con columna recta. Cierra los ojos.","Visualiza una raíz que baja desde la base del cuerpo hacia el suelo —profunda, firme.","Siente cómo la energía sube desde esa raíz, como savia en un árbol. No la empujes.","Recita pausadamente. En «Sube. Sigue.» haz una pausa real y siente.","Al terminar, permanece inmóvil 1-2 minutos.","Abre los ojos despacio. No te muevas bruscamente."] },
+    reto:"Ese día: mantén la espalda erguida, no te disperses, termina al menos una tarea de principio a fin.",
+    cabala:"El eje Keter-Malkut es el pilar central del Árbol de la Vida. La energía que sube de Malkut (cuerpo) a Keter (corona) es exactamente el movimiento de este hechizo.",
+    seal:"Lo que nace en mí, asciende.",
+    lyrics:[
+      {t:"cl",l:["Eh… Eh…"]},
+      {t:"v",l:["Pies en tierra, estoy aquí,","siento el suelo bajo mí,","no me muevo, no me voy,","desde aquí empiezo hoy."]},
+      {t:"v",l:["Respiro y dejo subir,","algo empieza a despertar,","no lo empujo, no lo fuerzo,","pero empieza a elevar."]},
+      {t:"b",l:["Sube.","Sigue.","Está en mí."]},
+      {t:"v",l:["Siento el eje en mi interior,","algo firme, algo real,","no es idea ni es pensar,","lo puedo notar."]},
+      {t:"v",l:["Nada fuera, todo aquí,","no hay esfuerzo, solo ir,","lo que nace desde mí,","sabe bien a dónde ir."]}
+    ]
+  },
+  { num:"VIII", title:"Apertura Respetuosa", sub:"Contacto sin Imposición", r:"ᚹ", tcolor:"#2a4018", trad:"Interno · Apertura",
+    purpose:"Abrir la percepción espiritual sin forzar ni dominar. El mundo espiritual no se invade: se solicita permiso. Lo invisible tiene sus propias leyes.",
+    clase:"int",
+    ritual:{ tiempo:"Crepúsculo —el tiempo entre mundos.", elementos:"Objeto natural como ancla opcional (piedra, rama). Vela gris o blanca.", espacio:"Lugar tranquilo, preferiblemente natural. Sentado o de pie.", proc:["Quédate en silencio varios minutos antes. No tengas intención de «hacer» nada.","Enciende la vela. Deja el objeto natural a tu lado si lo usas.","Recita en casi susurro —el tono respetuoso es parte del ritual.","No busques señales ni las esperes activamente.","Si percibes algo, acéptalo sin analizar inmediatamente.","Al terminar, agradece en voz alta tres veces: «Gracias.» Esto cierra el espacio."] },
+    reto:"Practica el respeto fuera del ritual: escucha sin interrumpir, no fuerces respuestas, acepta un «todavía no».",
+    cabala:"Netzach rige el contacto con lo invisible. La receptividad sin ego es central en la cábala mística: el practicante se vuelve recipiente, no agente.",
+    seal:"No tomo, solo permito.",
+    lyrics:[
+      {t:"v",l:["Sigo en pie, sigo aquí,","lo que hay en mí vive en mí,","no me pierdo, no me voy,","desde el centro donde estoy."]},
+      {t:"v",l:["Si hay presencia en este lugar,","no la vengo a perturbar,","si hay mirada más allá,","no la quiero dominar."]},
+      {t:"b",l:["No hay fuerza en mi voz,","ni intención de tomar,","solo dejo un espacio,","donde todo pueda estar."]},
+      {t:"v",l:["Si hay puente, se abrirá,","si hay silencio, quedará,","no me impongo, no dirijo,","solo vengo a respetar."]},
+      {t:"v",l:["Sigo en pie, sigo en mí,","y desde ahí puedo abrir,","lo que tenga que venir,","llegará si ha de venir."]}
+    ]
+  },
+  { num:"IX", title:"Percepción Sutil", sub:"Ver Más Allá", r:"ᛈ", tcolor:"#182250", trad:"Interno · Percepción",
+    purpose:"Percibir lo invisible sin alterar el equilibrio. En la práctica de seiðr nórdica, la völva no fuerza visiones —entra en receptividad profunda. En la tradición celta, los bardos percibían a través de la observación tranquila, no del trance forzado.",
+    clase:"int",
+    ritual:{ tiempo:"Noche, luna menguante o nueva.", elementos:"Penumbra —no oscuridad total, sino luz suave (vela, luna). Silencio.", espacio:"Sentado cómodamente. Ojos entrecerrados, no cerrados. Sin cruzar piernas ni brazos.", proc:["Deja que los ojos se entreabran —no enfoques nada específico. Observa el espacio periférico.","Respira lentamente. No controles la respiración, solo obsérvala.","Recita en casi susurro.","Mantente en «no buscar» —el que percibe sin tensión.","No nombres ni analices durante el ritual.","Al terminar, frota las manos y pásalas por el rostro —gesto de retorno."] },
+    reto:"Durante una semana, anota intuiciones y comprueba cuáles eran reales y cuáles imaginación.",
+    cabala:"El hitbonenut cabalístico sigue el mismo principio: mirar sin imponer forma. El Ermitaño del Tarot —el buscador que espera en silencio con la linterna encendida.",
+    seal:"Percibo sin romper.",
+    lyrics:[
+      {t:"v",l:["Sigo en pie, sigo aquí,","nada cambia fuera en mí,","pero algo empieza a abrir,","más allá de lo que vi."]},
+      {t:"b",l:["Lo que estaba sin notar,","toma forma al observar,","no aparece al empujar,","solo al dejar de intentar."]},
+      {t:"v",l:["Si hay presencia en este lugar,","no la vengo a despertar,","pero empiezo a percibir,","lo que siempre estuvo aquí."]},
+      {t:"v",l:["No lo tomo, no lo cierro,","no lo nombro, no lo aferro,","si se muestra, lo veré,","y en silencio quedaré."]}
+    ]
+  },
+  { num:"X", title:"Pacto Justo", sub:"Equilibrio y Trato", r:"ᛏ", tcolor:"#2a1665", trad:"Externo · Pacto",
+    purpose:"Establecer acuerdos espirituales desde el equilibrio y la integridad. En la tradición nórdica, el juramento es sagrado. Un pacto sin reciprocidad es desequilibrio.",
+    clase:"ext",
+    ritual:{ tiempo:"Miércoles —día de Odín, señor de los pactos.", elementos:"Vela blanca · Hoja con tus límites escritos antes del ritual · Sal · Objeto de hierro", espacio:"Sentado, con la vela encendida frente a ti y el papel a la vista.", proc:["Antes del ritual, escribe qué estás dispuesto a dar y qué no aceptarás. Sé específico.","Traza un pequeño círculo de sal. Coloca el objeto de hierro en el centro.","Enciende la vela. Lee tus límites en voz alta, clara y sin prisa.","Recita el hechizo como declaración de intención, no como ruego.","Dobla el papel tres veces y guárdalo. No lo quemes —es el testimonio.","Apaga la vela. Si el acuerdo se rompe algún día, quema el papel y recomienza."] },
+    reto:"Pon un límite concreto en tu vida cotidiana esa misma semana.",
+    cabala:"El brit (pacto sagrado) tiene consecuencias reales. Chesed (generosidad) y Geburah (rigor) en equilibrio —exactamente lo que este hechizo declara.",
+    seal:"Nada sin equilibrio.",
+    lyrics:[
+      {t:"v",l:["A quien guarda lo que no veo,","y sostiene ese otro lado,","hablo firme desde aquí,","y mantengo lo que digo."]},
+      {t:"b",l:["No acepto lo que no es,","ni camino al revés,","si hay algo que deba entrar,","sabrá dónde encajar."]},
+      {t:"v",l:["Lo que doy vuelve a mí,","lo que llega ha de venir,","nada tomo sin raíz,","ni acepto lo que me quiebre aquí."]},
+      {t:"v",l:["Si hay palabra que sellar,","no la voy a traicionar,","lo que nace en este acto,","yo lo sostengo sin quebrarlo."]}
+    ]
+  },
+  { num:"XI", title:"Cierre", sub:"Fin y Retorno", r:"ᛟ", tcolor:"#480f06", trad:"Interno · Cierre",
+    purpose:"Cerrar rituales, cortar vínculos temporales y restituir el equilibrio. Todo círculo que se abre debe cerrarse. Los druidas cerraban con agradecimiento. El cierre del blót honra a los poderes al liberarlos.",
+    clase:"int",
+    ritual:{ tiempo:"Al final de cualquier ritual. Es siempre el último acto.", elementos:"Agua en cuenco o simplemente el soplo. Sal opcional.", espacio:"El mismo espacio del ritual.", proc:["Permanece en el espacio hasta el final. No lo abandones antes de terminar.","Recita con voz tranquila —no agotada ni apresurada.","Al llegar al verso de reconocimiento, inclina brevemente la cabeza.","Sopla suavemente o lava las manos en el cuenco —acto físico de liberación.","Visualiza todo lo convocado regresando a su lugar de origen.","Di en voz alta: «Queda cerrado. Queda en paz. Así es.»"] },
+    reto:"Haz después una acción de aterrizaje: comer algo, ordenar el espacio, salir al aire libre.",
+    cabala:"El cierre es obligatorio. El LBRP de cierre restaura el equilibrio del espacio. Este hechizo cumple exactamente esa función.",
+    seal:"Todo vuelve a su sitio.",
+    lyrics:[
+      {t:"v",l:["Lo que ha sido, queda aquí,","lo que vino, ya lo vi,","lo que tuvo que pasar,","ha encontrado su lugar."]},
+      {t:"v",l:["A quien haya estado ahí,","sin mostrarse o sin venir,","reconozco lo que fue,","y lo dejo como es."]},
+      {t:"b",l:["Nada tomo más de aquí,","nada dejo sin cerrar,","lo que abrió en este momento,","vuelve ahora a su lugar."]},
+      {t:"b",l:["Cierro claro, sin dudar,","vuelvo entero a mi lugar,","lo que soy queda en mí,","y todo acaba aquí."]}
+    ]
+  }
+];
+
+const B2 = [
+  { num:"XII", title:"Protección Activa", sub:"El Escudo y el Círculo", r:"ᛉ", tcolor:"#2a1665", trad:"Externo · Protección",
+    purpose:"Crear protección activa y consciente —no solo simbólica. El círculo mágico es el primer acto de todo ritual: crea un espacio sagrado y protegido. La runa Algiz (ᛉ) es el escudo divino. Este hechizo traza un límite, no construye una jaula.",
+    clase:"ext",
+    ritual:{ tiempo:"Sábado —día de Saturno, límites y estructuras— o antes de situaciones de riesgo energético.", elementos:"Sal · Vela negra o blanca · Agua · Incienso (sándalo, romero o enebro) · Runa Algiz dibujada", espacio:"De pie en el centro del espacio que quieres proteger.", proc:["Traza un círculo de sal alrededor de ti. Si no puedes, visualiza uno de luz blanca.","Enciende la vela e incienso. Di: «Nada que no sea para mi bien cruza este límite.»","Dibuja o visualiza la runa Algiz (ᛉ) en el aire frente a ti.","Recita moviéndote en sentido horario (deosil).","Al terminar, toca el suelo con ambas manos —anclas el escudo a la tierra.","Di: «Está hecho. Está firme. Así permanece.»"] },
+    reto:"Esta semana: pon un límite concreto con una persona o situación que drena tu energía.",
+    cabala:"Geburah y el pentagrama son centrales en la protección cabalística. El LBRP es el equivalente directo de este hechizo.",
+    seal:"Nada sin permiso. Nada sin razón.",
+    lyrics:[
+      {t:"v",l:["Trazo el límite con mi voz,","nada cruza sin mi permiso,","lo que venga sin verdad,","no encuentra aquí su sitio."]},
+      {t:"v",l:["La runa Algiz ante mí,","escudo vivo que no cede,","lo que empuje desde fuera,","en mi límite se detiene."]},
+      {t:"b",l:["No es muro que me encierra,","es puerta que yo abro,","lo que elijo que entre, entra,","lo que no, no lo alcanzo."]},
+      {t:"c",l:["Escudo firme, límite claro,","nada me toca sin querer,","lo que soy se queda salvo,","y el círculo sabe sostener."]},
+      {t:"c",l:["Algiz guarda mi camino,","Algiz sella este lugar,","lo que salga de mis manos,","protegido va a quedar."]}
+    ]
+  },
+  { num:"XIII", title:"Limpieza y Purificación", sub:"Reiniciar el Sistema", r:"ᛜ", tcolor:"#183318", trad:"Externo · Limpieza",
+    purpose:"Eliminar cargas emocionales, energías acumuladas y limpiar espacios. El fuego y el agua corriente purifican todo. El humo de hierbas sagradas y la sal son los grandes limpiadores.",
+    clase:"ext",
+    ritual:{ tiempo:"Luna menguante —cuando la luna decrece, se eliminan cargas— o en cualquier momento de necesidad.", elementos:"Salvia, romero o enebro para quemar · Cuenco con agua y sal marina · Vela blanca", espacio:"El espacio que quieres limpiar, empezando por las esquinas.", proc:["Abre todas las ventanas posibles. El aire que entra lleva lo limpio; el que sale lleva lo viejo.","Mezcla sal en el agua. Di: «Sal que purifica, agua que limpia, que lo que ya no sirve se vaya.»","Enciende las hierbas. Muévelas en sentido contrario a las agujas del reloj por las esquinas.","Recita mientras caminas por el espacio.","Salpica el agua con sal en los umbrales.","Al terminar, vacía el agua sobrante fuera del hogar."] },
+    reto:"Esta semana: limpia físicamente un espacio que lleva tiempo sin atención. La limpieza física y la energética son la misma cosa.",
+    cabala:"La purificación precede cualquier trabajo en cábala. La sal es Malkut —lo físico que purifica.",
+    seal:"Lo que estaba, se va. Lo que viene, es limpio.",
+    lyrics:[
+      {t:"v",l:["Que el humo lleve lo que pesa,","que el agua arrastre lo que duele,","que el aire abra lo que cierra,","y que la tierra lo reciba."]},
+      {t:"b",l:["Fuego que transforma,","agua que disuelve,","tierra que absorbe,","aire que renueva."]},
+      {t:"c",l:["Limpio este espacio y este cuerpo,","limpio lo que en mí se quedó,","lo que ya no tiene lugar aquí,","con respeto lo suelto yo."]},
+      {t:"v",l:["Las esquinas ya no guardan,","lo que debía haberse ido,","el umbral está abierto y claro,","y lo nuevo es bienvenido."]},
+      {t:"c",l:["Sale lo que ya no es,","entra lo que ha de ser,","el espacio vuelve a ser mío,","y sé lo que hay que hacer."]}
+    ]
+  },
+  { num:"XIV", title:"Sombra", sub:"El Trabajo Interior Profundo", r:"ᚺ", tcolor:"#1a1a1a", trad:"Interno · Sombra",
+    purpose:"Confrontar y aceptar las partes oscuras del yo: miedo, ego, heridas, impulsos. La magia que ignora la propia oscuridad eventualmente la amplifica. El samhain es el momento de enfrentar lo que se esconde. Este hechizo no se hace de forma esporádica —es un compromiso de honestidad.",
+    clase:"int",
+    ritual:{ tiempo:"Luna nueva o noche de Samhain (31 oct). Nunca en luna llena —demasiada energía activa para trabajo de sombra.", elementos:"Vela negra · Espejo pequeño · Papel y lápiz · Caja o cajón donde guardar el escrito", espacio:"Oscuridad total o casi total. Solo la vela negra. Solo.", proc:["Siéntate frente al espejo con la vela encendida entre tú y él.","Mira tu reflejo durante 2-3 minutos en silencio sin apartar la vista.","En el papel, escribe: «Lo que más temo de mí mismo/a es:» y completa con honestidad.","Recita lentamente, mirando al espejo en los momentos de silencio.","Dobla el papel y guárdalo en la caja. No lo quemes —lo que se nombra debe ser sostenido.","Apaga la vela. Sal del espacio. Come algo caliente —el trabajo de sombra consume."] },
+    reto:"Durante los siguientes 7 días, observa sin juicio los momentos en que actúas desde ese lugar oscuro que nombraste. No los corrijas aún —solo obsérvalos.",
+    cabala:"Los Qliphoth son las cáscaras del árbol —la sombra de cada sefirá. Quien trabaja sin conocer sus qliphoth trabaja a ciegas. El psicoanálisis junguiano lo llama trabajo con la sombra. Son coherentes.",
+    seal:"Lo que no nombro, me gobierna. Lo que nombro, puedo conocer.",
+    lyrics:[
+      {t:"v",l:["No te escondo, parte oscura,","ya sé que estás aquí,","no te peleo ni te empujo,","te miro y te digo: sí."]},
+      {t:"v",l:["Eres el miedo que guardé,","la herida sin cerrar,","el gesto que no reconozco,","y vuelve a gobernar."]},
+      {t:"b",l:["No te venzo negándote,","te integro al verte claro,","lo que niego se hace grande,","lo que miro, se hace honrado."]},
+      {t:"c",l:["Sombra mía, parte entera,","no eres lo que me destruye,","eres lo que aún no sé usar,","y en honrarme, me construye."]},
+      {t:"c",l:["Me miro entero en el espejo,","sombra y luz en el mismo ser,","lo que soy no me da miedo,","cuando lo aprendo a ver."]}
+    ]
+  },
+  { num:"XV", title:"Vínculos", sub:"Amor, Lazos y Comunidad", r:"ᚷ", tcolor:"#183318", trad:"Externo · Lazos",
+    purpose:"Fortalecer relaciones, sanar vínculos rotos y atraer conexiones sanas. La magia de vínculos no trabaja para dominar la voluntad de nadie —trabaja para fortalecer el propio campo y atraer lo que es afín.",
+    clase:"ext",
+    ritual:{ tiempo:"Viernes —día de Freya— luna creciente.", elementos:"Hilo rojo · Dos velas · Flores o lavanda", espacio:"Tranquilo, con luz suave.", proc:["Coloca las dos velas una frente a la otra. Enciéndelas simultáneamente.","Ata tres nudos en el hilo rojo mientras dices: «Lo que es real, que permanezca. Lo que es sano, que crezca.»","Recita con los ojos en las llamas.","No ates el hilo a nada —guárdalo enrollado como símbolo de vínculo libre.","Deja las velas arder hasta que sean pequeñas. No las apagues.","Coloca flores o lavanda sobre la mesa y déjalas secar."] },
+    reto:"Esta semana: haz un gesto concreto de apertura hacia alguien —un mensaje, una visita, un reconocimiento.",
+    cabala:"Netzach rige el amor y los vínculos. Este hechizo trabaja directamente Netzach: no fuerza, atrae por afinidad.",
+    seal:"Lo que es sano entre nosotros, crece. Lo que no lo es, se suelta.",
+    lyrics:[
+      {t:"v",l:["Lo que nos une tiene raíz,","no es capricho ni azar,","es algo que eligió crecer,","y quiero cultivar."]},
+      {t:"v",l:["No ato lo que no es libre,","no retengo lo que quiere irse,","fortalezco lo que es real,","y suelto lo que no puede seguir."]},
+      {t:"b",l:["Lo que brindo, que sea honesto,","lo que pido, que sea claro,","lo que siento, que lo diga,","lo que recibo, que lo cuide."]},
+      {t:"c",l:["Que crezca lo que es verdadero,","que sane lo que se rompió,","que llegue lo que es afín a mí,","y permanezca lo que amor dio."]},
+      {t:"c",l:["Vínculos de tierra y agua,","lazos que la magia cuida,","lo que sembramos juntos aquí,","que arraigue y dé vida."]}
+    ]
+  },
+  { num:"XVI", title:"Sueño y Visión", sub:"El Plano Onírico", r:"ᛗ", tcolor:"#182250", trad:"Interno · Visión",
+    purpose:"Acceder al plano del sueño para recibir mensajes simbólicos o guía espiritual nocturna. En la tradición nórdica, los sueños son mensajes del wyrd (destino) o de los ancestros.",
+    clase:"int",
+    ritual:{ tiempo:"Antes de dormir. Luna llena o creciente preferiblemente.", elementos:"Cuenco con agua bajo la cama · Lavanda o valeriana bajo la almohada · Diario y lápiz en la mesita", espacio:"La propia cama, preparada con intención.", proc:["Antes de acostarte, escribe en el diario una pregunta o intención clara.","Coloca el cuenco de agua bajo la cama —el agua recibe y refleja visiones.","Pon lavanda o valeriana bajo la almohada.","Recita tumbado, casi dormido, como si hablaras al umbral del sueño.","No lo recites en voz alta —en susurro o mentalmente.","Al despertar, escribe inmediatamente lo que recuerdes, sin interpretar todavía."] },
+    reto:"Durante 7 noches, escribe algo de cada sueño al despertar. Al séptimo día, busca el símbolo que se repite.",
+    cabala:"Yesod es la luna y el plano astral —el mundo de las visiones y los sueños. La escritura onírica es equivalente al diario mágico en la tradición cabalística occidental.",
+    seal:"El sueño es la puerta. El umbral me conoce.",
+    lyrics:[
+      {t:"v",l:["Que el sueño sea puerta,","no fuga ni ruido,","que lo que viene en la noche,","traiga lo que necesito."]},
+      {t:"v",l:["Entrego la vigilia,","acepto el misterio,","lo que no puede verse despierto,","puede verse en lo que el sueño espero."]},
+      {t:"b",l:["No fuerzo la visión,","la invito con calma,","lo que el umbral quiera mostrar,","lo recibirá mi alma."]},
+      {t:"c",l:["Que el sueño hable en símbolos,","que yo sepa escuchar,","que lo que venga esta noche,","tenga algo que enseñar."]},
+      {t:"c",l:["Duermo en el umbral abierto,","despierto con lo aprendido,","lo que el sueño me dio esta noche,","lo sostengo agradecido."]}
+    ]
+  },
+  { num:"XVII", title:"Voluntad", sub:"Manifestación Directa", r:"ᛞ", tcolor:"#2a1665", trad:"Externo · Voluntad",
+    purpose:"Declarar la voluntad de forma directa. Este hechizo actúa. La voluntad declarada con firmeza ante los poderes es un acto sagrado. «Como arriba, así abajo; como es mi voluntad, así se hará» es el principio de manifestación directa.",
+    clase:"ext",
+    ritual:{ tiempo:"Martes o domingo. Luna llena.", elementos:"Vela roja o naranja · Papel con la intención escrita en presente · Runa Dagaz (ᛞ) dibujada", espacio:"De pie. Postura de poder. Voz en su volumen natural o más alto.", proc:["Escribe la intención en presente y en positivo: «Tengo / Soy / Logro...» Nunca en negativo.","Dibuja la runa Dagaz (ᛞ) en el papel —representa el umbral, el momento de cambio.","Enciende la vela roja.","Recita de pie, con la voz más firme que tengas —este hechizo se declara, no se ruega.","Quema el papel en la vela al terminar —la intención se libera al fuego.","Deja la vela arder. Actúa ese mismo día hacia tu intención."] },
+    reto:"Ese mismo día: da un paso concreto y visible hacia lo que declaraste. La voluntad sin acción es solo palabra.",
+    cabala:"Chesed y Geburah en tensión crean Tiferet —la manifestación equilibrada. El Mago del Tarot es el símbolo de este principio.",
+    seal:"Lo decreto. Lo camino. Lo vivo.",
+    lyrics:[
+      {t:"v",l:["Esto no es ruego ni esperanza,","esto es declaración,","lo que pongo en estas palabras,","tiene forma y dirección."]},
+      {t:"b",l:["No dudo, no me pregunto,","no espero señal que venga,","lo que decreto con firmeza,","el universo lo entienda."]},
+      {t:"c",l:["Esto ocurre porque lo digo,","esto existe porque lo quiero,","mi voluntad es el primer paso,","la acción es el verdadero."]},
+      {t:"v",l:["No hay fuerza fuera de mí,","que me diga que no es posible,","lo que lanzo con intención clara,","vuelve a mí como lo invisible."]},
+      {t:"c",l:["Decreto firme, acción directa,","voluntad que sabe su nombre,","lo que muevo con estas manos,","no lo detiene ningún hombre."]}
+    ]
+  },
+  { num:"XVIII", title:"Naturaleza y Ciclos", sub:"La Magia de la Estación", r:"ᛃ", tcolor:"#2a4018", trad:"Externo · Ciclos",
+    purpose:"Conectar con los ciclos naturales: luna, estaciones, ruedas del año. Los cuatro grandes fuegos —Imbolc, Beltane, Lughnasadh, Samhain— estructuran el tiempo sagrado.",
+    clase:"ext",
+    ritual:{ tiempo:"Adaptable a la estación o fase lunar actual.", elementos:"Algo de la estación actual: flores, frutos, rama, tierra húmeda · Vela del color de la estación", espacio:"Al aire libre siempre que sea posible. Si no, con ventana abierta.", proc:["Recoge algo de la naturaleza de hoy: una hoja, piedra, flor, tierra, agua de lluvia.","Sostenlo en las manos durante el ritual.","Recita orientado hacia el sol o hacia la luna según la hora.","Devuelve el objeto a la naturaleza al terminar —lo que tomas de la tierra vuelve a la tierra.","Si es un sabbat o fase lunar especial, dedica 5 minutos después a sentarte en silencio con la naturaleza."] },
+    reto:"Este mes: observa el ciclo lunar completo. Anota cómo cambia tu energía según la fase de la luna.",
+    cabala:"Los ciclos naturales en cábala corresponden a Yesod (luna) y a las emanaciones de Chesed y Binah. El Shabbat y las festividades son «ventanas» al tiempo sagrado —convergente con el wheel of the year.",
+    seal:"Soy parte del ciclo. El ciclo me sostiene.",
+    lyrics:[
+      {t:"v",l:["Lo que la tierra hace en su tiempo,","yo lo aprendo a respetar,","no hay prisa que valga más,","que el ritmo natural."]},
+      {t:"b",l:["No voy contra el ciclo,","voy con él en mi paso,","lo que la rueda trae hoy,","lo recibo como regalo."]},
+      {t:"c",l:["Tierra que gira y yo con ella,","luna que crece y yo también,","soy parte de lo que el mundo teje,","y me muevo en su vaivén."]},
+      {t:"c",l:["Rueda que nunca se detiene,","ciclo que siempre vuelve al ser,","soy nodo en el tejido vivo,","y eso me basta para crecer."]}
+    ]
+  },
+  { num:"XIX", title:"Protección del Hogar", sub:"El Espacio Sagrado", r:"ᛒ", tcolor:"#183318", trad:"Externo · Hogar",
+    purpose:"Sellar el hogar como espacio sagrado y protegido. El hogar es el centro del mundo conocido y su umbral es una frontera mágica. La consagración del espacio es el primer acto de cualquier práctica seria.",
+    clase:"ext",
+    ritual:{ tiempo:"Sábado o en luna menguante. O después de mudarse a un nuevo espacio.", elementos:"Sal · Agua consagrada (agua con sal marina) · Incienso de romero o enebro · Vela blanca en el umbral", espacio:"Todo el perímetro del hogar, comenzando por la puerta principal.", proc:["Empieza en la puerta principal. Coloca sal en el umbral: «Nada que no sea bienvenido entra aquí.»","Camina en sentido horario por todo el perímetro interior con el incienso encendido.","Salpica agua con sal en esquinas, ventanas y puertas interiores.","Enciende la vela blanca en el umbral principal y deja que arda.","Recita cuando hayas completado el recorrido, de pie en el centro del hogar.","Di: «Este espacio me conoce. Yo lo conozco. Quedamos en paz.»"] },
+    reto:"Limpia físicamente el umbral de tu hogar esta semana. La protección mágica y la física son inseparables.",
+    cabala:"El mezuzá en el umbral judío es el equivalente exacto: texto sagrado que protege la entrada y marca el espacio como consagrado.",
+    seal:"Mi hogar me conoce. Lo que entra, entra con respeto.",
+    lyrics:[
+      {t:"v",l:["Este umbral es frontera viva,","lo que cruza debe saber,","que aquí se vive con respeto,","o no tiene por qué entrar."]},
+      {t:"v",l:["Las paredes guardan lo mío,","el suelo sostiene mi paso,","el techo cuida lo que amo,","y el umbral sabe su encargo."]},
+      {t:"b",l:["Sal en la entrada,","agua en las esquinas,","humo que limpia,","llama que afirma."]},
+      {t:"c",l:["Este espacio es sagrado y mío,","lo sello con sal, agua y voz,","lo que entra que traiga paz,","lo que no, que vuelva con Dios."]},
+      {t:"c",l:["Puerta sellada, espacio limpio,","lo que es mío queda en mí,","mi hogar me acoge y yo lo cuido,","y así vivimos desde aquí."]}
+    ]
+  },
+  { num:"XX", title:"Corte y Liberación", sub:"Romper Vínculos y Ataduras", r:"ᚦ", tcolor:"#480f06", trad:"Interno · Liberación",
+    purpose:"Cortar activamente vínculos energéticos, relaciones que drenan, influencias no deseadas o patrones que se repiten. La runa Thurisaz (ᚦ) es la espina, el corte limpio, la fuerza que elimina lo que bloquea.",
+    clase:"int",
+    ritual:{ tiempo:"Luna menguante —cuando la luna decrece, se corta y se libera.", elementos:"Hilo o cuerda que puedas cortar · Tijeras o cuchillo ritual · Vela negra o blanca · Cuenco con agua fría", espacio:"Al aire libre si es posible. O junto a una ventana abierta.", proc:["Ata el hilo a algo que representa el vínculo a cortar —un objeto, un papel con nombre, o sostenlo en la mano.","Enciende la vela.","Recita con claridad y sin duda —la duda detiene el corte.","Al llegar al momento del corte, di: «Lo suelto. Ya no me pertenece.» y corta el hilo con un movimiento limpio y firme.","Coloca los dos extremos en el cuenco de agua fría —el agua sella la separación.","Vacía el agua fuera de tu hogar. Desecha los restos del hilo fuera también."] },
+    reto:"Esta semana: identifica una relación, hábito o situación que llevas manteniendo por inercia o miedo. Da el primer paso real para cortarlo.",
+    cabala:"La espada de Geburah es el instrumento del corte justo —no cruel, sino necesario. La Torre del Tarot (sendero 27) es la ruptura que libera.",
+    seal:"Lo suelto. Ya no me pertenece.",
+    lyrics:[
+      {t:"v",l:["Lo que me ata sin servir,","lo que pesa sin crecer,","lo que tomé sin elegir,","ya puede irse a su lugar."]},
+      {t:"b",l:["No es abandono ni es traición,","es conocerme lo suficiente,","para saber qué me construye,","y qué me tiene dependiente."]},
+      {t:"c",l:["Corto limpio, suelto claro,","sin rencor y sin mirar atrás,","lo que se va se va en paz,","y lo mío queda aquí nada más."]},
+      {t:"v",l:["El hilo que une lo que fue,","lo corto con mis propias manos,","lo que era mío ya lo fue,","y ahora ambos somos más liviano."]},
+      {t:"c",l:["Libre de lo que me ataba,","libre de lo que no era real,","el corte no me hace menos,","me hace entero y más cabal."]}
+    ]
+  },
+  { num:"XXI", title:"Invocación", sub:"Llamar las Fuerzas", r:"ᚨ", tcolor:"#543508", trad:"Externo · Invocación",
+    purpose:"Invocar fuerzas elementales, ancestros o arquetipos. La invocación es un acto de honor: se llama al poder para que esté presente, no para ser comandado. Invocar a los ancestros o las fuerzas de la naturaleza es reconocer que no se camina solo.",
+    clase:"ext",
+    ritual:{ tiempo:"Cualquier sabbat, luna llena, o antes de un trabajo mágico importante.", elementos:"Los cuatro elementos representados: vela (fuego sur), incienso (aire este), cuenco de agua (agua oeste), sal o piedra (tierra norte)", espacio:"De pie en el centro, orientado a los cuatro puntos cardinales.", proc:["Coloca cada elemento en su punto cardinal.","Empieza al este (aire) y gira en sentido horario, saludando cada elemento con una inclinación.","Recita la invocación elemental completa del apéndice ante cada punto.","Recita este hechizo como apertura de cualquier trabajo mayor.","Al terminar el trabajo principal, recorre los cuatro puntos en sentido contrario para despedir las fuerzas.","Di: «Gracias por vuestra presencia. Quedáis libres. Así es.»"] },
+    reto:"Elige un elemento con el que sientas poca conexión. Esta semana trabaja conscientemente con él.",
+    cabala:"La invocación de los cuatro arcángeles en el LBRP (Rafael este, Miguel sur, Gabriel oeste, Uriel norte) es el equivalente directo. Las correspondencias son casi idénticas.",
+    seal:"Lo invoco con respeto. Lo libero con gratitud.",
+    lyrics:[
+      {t:"v",l:["Aire del este, sílfide fina,","ven y trae tu claridad,","que el pensamiento se agudice,","y la palabra sea verdad."]},
+      {t:"v",l:["Fuego del sur, salamandra viva,","ven y enciende mi valor,","que la acción salga sin miedo,","y la voluntad sea calor."]},
+      {t:"v",l:["Agua del oeste, ondina honda,","ven y trae tu sentir,","que la emoción fluya limpia,","y la intuición pueda abrir."]},
+      {t:"v",l:["Tierra del norte, gnomo firme,","ven y da raíz a esto,","que lo que hago tenga base,","y lo construido sea honesto."]},
+      {t:"b",l:["Espíritu del centro, eje vivo,","une lo que aquí convoco,","que todo trabaje en su medida,","sin exceso y sin ser poco."]},
+      {t:"c",l:["Os llamo con respeto,","os honro con mi voz,","estad presentes en lo que hago,","y cuando acabe, quedáis libres vos."]}
+    ]
+  },
+  { num:"XXII", title:"Gratitud y Ofrenda", sub:"Devolver lo Recibido", r:"ᚾ", tcolor:"#480f06", trad:"Externo · Cierre",
+    purpose:"Honrar lo recibido, devolver energía a los poderes que se han trabajado y mantener el equilibrio del intercambio. El blót termina siempre con la ofrenda —sin ella, el ciclo queda abierto. Sin gratitud, la magia se vuelve extracción.",
+    clase:"ext",
+    ritual:{ tiempo:"Siempre el último, después del cierre (hechizo XI). O al final de cualquier ciclo.", elementos:"Pan o alimento · Bebida (hidromiel, vino, agua) · Cuenco para la ofrenda a la tierra", espacio:"Al aire libre si es posible. Junto a un árbol, tierra o planta.", proc:["Prepara el pan y la bebida sobre una mesa o directamente en la tierra.","Parte el pan. Toma el primer trozo y di: «Para lo que me sostiene.» Déjalo en el cuenco.","Vierte un poco de bebida. Di: «Para lo que me da fuerzas.» Viértelo en el cuenco.","Recita con el cuenco en las manos.","Vierte el contenido del cuenco en la tierra, al pie de un árbol o planta.","Come y bebe tú lo que queda —eres parte del ciclo también."] },
+    reto:"Esta semana: da algo concreto a alguien o a algo sin esperar nada a cambio. La ofrenda real es la que no tiene condiciones.",
+    cabala:"La tzedaká (justicia/generosidad) es la devolución obligatoria de lo recibido. La gratitud no es decorativa —es el mecanismo que mantiene el flujo.",
+    seal:"Doy porque he recibido. Recibo porque doy. El ciclo se cierra bien.",
+    lyrics:[
+      {t:"v",l:["Gracias al viento que sopló,","gracias a la tierra que aguantó,","gracias al fuego que encendió,","gracias al agua que fluyó."]},
+      {t:"v",l:["Gracias a lo que no vi,","que estuvo y no pidió nada,","gracias a lo que recibí,","sin merecer de sobra."]},
+      {t:"b",l:["No es deuda lo que devuelvo,","es reconocimiento limpio,","lo que el ciclo me ha dado,","vuelve al ciclo con cariño."]},
+      {t:"c",l:["Para la tierra, este pan,","para el cielo, esta voz,","para lo vivo y lo invisible,","este gesto de gratitud y honor."]},
+      {t:"c",l:["Así se cierra el ciclo entero,","dando lo que fue recibido,","la gratitud no es solo gesto,","es lo que mantiene el tejido."]}
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════ RENDER
+
+let cur1=0, cur2=0;
+
+function openMain(){
+  document.getElementById('cover').style.display='none';
+  document.getElementById('main').style.display='block';
+  buildTOC();
+  buildPages();
+  buildOrden();
+}
+
+function switchTab(id){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  const tb = document.getElementById('tab-'+id);
+  const sc = document.getElementById('sec-'+id);
+  if(tb) tb.classList.add('active');
+  if(sc) sc.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function buildTOC(){
+  document.getElementById('toc1').innerHTML = B1.map((s,i)=>`
+    <div class="toc-item" onclick="goB1(${i})">
+      <span class="ti-r">${s.r}</span>
+      <span class="ti-name">${s.num}. ${s.title}</span>
+      <span class="ti-badge">${s.trad}</span>
+      <span class="ti-moon">${moonMap[s.num]||''}</span>
+    </div>`).join('');
+  document.getElementById('toc2').innerHTML = B2.map((s,i)=>`
+    <div class="toc-item" onclick="goB2(${i})">
+      <span class="ti-r">${s.r}</span>
+      <span class="ti-name">${s.num}. ${s.title}</span>
+      <span class="ti-badge">${s.trad}</span>
+      <span class="ti-moon">${moonMap[s.num]||''}</span>
+    </div>`).join('');
+}
+
+function buildPage(s, i, pfx){
+  const lyrics = s.lyrics.map(b=>{
+    if(b.t==='c') return `<div class="ch"><div class="ch-mark">— Coro —</div>${b.l.join('<br>')}</div>`;
+    if(b.t==='cl') return `<div class="call">${b.l.join('<br>')}</div>`;
+    if(b.t==='b') return `<div class="bridge">${b.l.join('<br>')}</div>`;
+    if(b.t==='rc') return `<div class="rune-ch">${b.l.join('<br>')}</div>`;
+    return `<div class="stanza">${b.l.join('<br>')}</div>`;
+  }).join('');
+
+  const isInt = s.clase === 'int';
+  const claseTxt = isInt ? '🔹 Trabajo Interno' : '🔸 Trabajo Externo';
+  const claseClass = isInt ? '' : 'ext';
+
+  return `<div class="spell-wrap" id="${pfx}-${i}">
+    <div class="pg-lines"></div>
+    <div class="sp-inner">
+      <div class="sp-header-row">
+        <div>
+          <div class="sp-num-line">${s.r} &nbsp; Hechizo ${s.num}</div>
+          <div class="sp-title">${s.title}</div>
+          <div class="sp-sub">${s.sub}</div>
+        </div>
+        <div class="sp-class-badge ${claseClass}">${claseTxt}</div>
+      </div>
+      <div class="sp-meta">
+        <span class="sp-badge" style="color:${s.tcolor};border-color:${s.tcolor};">${s.trad}</span>
+        <span class="sp-badge" style="color:rgba(80,50,110,0.7);border-color:rgba(80,50,110,0.35);">${moonMap[s.num]||''} ${lunaName(s.num)}</span>
+      </div>
+      <div class="sp-purpose">${s.purpose}</div>
+
+      <div class="box ritual">
+        <span class="box-lbl">Ritual</span>
+        <div class="r-row"><span class="r-lbl">Tiempo</span><span>${s.ritual.tiempo}</span></div>
+        <div class="r-row"><span class="r-lbl">Elementos</span><span>${s.ritual.elementos}</span></div>
+        <div class="r-row"><span class="r-lbl">Espacio</span><span>${s.ritual.espacio}</span></div>
+        <div style="margin-top:14px;">
+          <div class="r-lbl" style="margin-bottom:8px;">Procedimiento</div>
+          <ol class="steps">${s.ritual.proc.map(p=>`<li>${p}</li>`).join('')}</ol>
+        </div>
+      </div>
+
+      <div class="box reto">
+        <span class="box-lbl">Reto Real</span>
+        <div style="font-size:14px;line-height:1.75;color:var(--darkbrown);">${s.reto}</div>
+      </div>
+
+      <div class="box cabala">
+        <span class="box-lbl">Paralelo · Meditación y Cábala</span>
+        <div style="font-size:13.5px;line-height:1.75;color:var(--darkbrown);font-style:italic;">${s.cabala}</div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="lyrics-head">El Hechizo · Versión Completa</div>
+      <div class="sp-lyrics">${lyrics}</div>
+
+      <div class="seal-block">
+        <div class="seal-lbl">Sello · Versión Corta · Invocación</div>
+        <div class="seal-txt">${s.seal}</div>
+        <span class="seal-rune">${s.r} · · · ${s.r}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function lunaName(num){
+  const m = moonMap[num];
+  if(m==='🌑') return 'Luna Nueva';
+  if(m==='🌒') return 'Luna Creciente';
+  if(m==='🌕') return 'Luna Llena';
+  if(m==='🌘') return 'Luna Menguante';
+  return '';
+}
+
+function buildPages(){
+  document.getElementById('pages1').innerHTML = B1.map((s,i)=>buildPage(s,i,'p1')).join('');
+  document.getElementById('pages2').innerHTML = B2.map((s,i)=>buildPage(s,i,'p2')).join('');
+  buildDots('p1-dots', B1, 'goB1');
+  buildDots('p2-dots', B2, 'goB2');
+  showPage1(0);
+  showPage2(0);
+}
+
+function buildDots(id, arr, fn){
+  document.getElementById(id).innerHTML = arr.map((s,i)=>
+    `<span class="rdot" id="${id}-${i}" onclick="${fn}(${i})" title="${s.title}">${s.r}</span>`
+  ).join('');
+}
+
+function buildOrden(){
+  const grid1 = document.getElementById('orden-grid1');
+  const grid2 = document.getElementById('orden-grid2');
+  if(grid1) grid1.innerHTML = B1.map(s=>`
+    <div class="ord-cell">
+      <span class="ord-rune">${s.r}</span>
+      <div class="ord-num">${s.num}</div>
+      <div class="ord-name">${s.title.split(' ')[0]}</div>
+      <div class="ord-phase">${moonMap[s.num]||''}</div>
+    </div>`).join('');
+  if(grid2) grid2.innerHTML = B2.map(s=>`
+    <div class="ord-cell">
+      <span class="ord-rune">${s.r}</span>
+      <div class="ord-num">${s.num}</div>
+      <div class="ord-name">${s.title.split(' ')[0]}</div>
+      <div class="ord-phase">${moonMap[s.num]||''}</div>
+    </div>`).join('');
+}
+
+function showPage1(i){
+  document.querySelectorAll('[id^="p1-"]').forEach(p=>{
+    if(p.classList.contains('spell-wrap')) p.classList.remove('active');
+  });
+  const pg = document.getElementById('p1-'+i);
+  if(pg) pg.classList.add('active');
+  cur1=i;
+  document.getElementById('p1-prev').disabled = i===0;
+  document.getElementById('p1-next').disabled = i===B1.length-1;
+  document.getElementById('p1-ind').textContent = (i+1)+' / '+B1.length;
+  document.querySelectorAll('[id^="p1-dots-"]').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+
+function showPage2(i){
+  document.querySelectorAll('[id^="p2-"]').forEach(p=>{
+    if(p.classList.contains('spell-wrap')) p.classList.remove('active');
+  });
+  const pg = document.getElementById('p2-'+i);
+  if(pg) pg.classList.add('active');
+  cur2=i;
+  document.getElementById('p2-prev').disabled = i===0;
+  document.getElementById('p2-next').disabled = i===B2.length-1;
+  document.getElementById('p2-ind').textContent = (i+1)+' / '+B2.length;
+  document.querySelectorAll('[id^="p2-dots-"]').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+
+function goB1(i){ switchTab('b1'); showPage1(i); }
+function goB2(i){ switchTab('b2'); showPage2(i); }
+function nav1(d){ showPage1(cur1+d); window.scrollTo(0,0); }
+function nav2(d){ showPage2(cur2+d); window.scrollTo(0,0); }
+</script>
+</body>
+</html>
